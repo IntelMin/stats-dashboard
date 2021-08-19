@@ -1,0 +1,34 @@
+@import 'styles/variables/colors';
+
+.widget {
+  border-radius: 5px;
+  padding: 15px;
+  background: $color-bg-1;
+
+  &__section {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+
+  &__sub-section {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    &_align_start {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    &_align_end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &_align_center {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

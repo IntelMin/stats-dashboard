@@ -1,0 +1,81 @@
+@import 'styles/variables/colors';
+
+.text {
+  &_typography {
+    &_text {
+      &-l {
+        font-size: 16px;
+      }
+
+      &-m {
+        font-size: 14px;
+      }
+
+      &-s {
+        font-size: 12px;
+      }
+    }
+
+    &_heading {
+      &-s {
+        font-size: 16px;
+      }
+
+      &-m {
+        font-size: 22px;
+      }
+
+      &-xl {
+        font-size: 40px;
+      }
+    }
+
+    &_label {
+      &-m {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &_color {
+    &_primary {
+      color: $color-fg;
+    }
+
+    &_secondary {
+      color: $color-light-fg;
+    }
+
+    &_error {
+      color: $color-error;
+    }
+
+    &_link {
+      color: $color-link;
+    }
+  }
+
+  &_weight {
+    &_normal {
+      font-weight: 400;
+    }
+
+    &_bold {
+      font-weight: 700;
+    }
+  }
+
+  &_align {
+    &_left {
+      text-align: left;
+    }
+
+    &_center {
+      text-align: center;
+    }
+
+    &_right {
+      text-align: right;
+    }
+  }
+}
