@@ -2,12 +2,12 @@
   "graphAPIUrl": "http://127.0.0.1:8000/subgraphs/name/strips-finance/test-subgraph",
   "chainID": 97,
   "views": {
-    "overview": true,
-    "exchange": true,
-    "liquidity": true,
-    "insurance": true,
-    "receiveSUSD": true,
-    "feedbackContest": true,
-    "leverageYieldFarm": true
+    "eventsLogs": true
+  },
+  "marketsNames": {
+    "0x5042d2724374f7b4f5cd14a2307bbc0c811516ec": {
+      "name": "Nerve",
+      "assetSymbol": "3pool"
+    }
   }
 }

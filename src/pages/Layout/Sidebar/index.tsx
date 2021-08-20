@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Text } from 'components';
 
-import './style.scss';
 
 export type SidebarNavItems = {
   to: string;

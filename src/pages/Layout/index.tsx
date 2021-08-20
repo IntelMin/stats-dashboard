@@ -1,11 +1,6 @@
 import block from 'bem-cn-lite';
-// import * as Sentry from '@sentry/react';
-
 import Header from './Header';
 import Sidebar, { SidebarNavItems } from './Sidebar';
-// import { ErrorOverlay } from './ErrorOverlay';
-
-import './style.scss';
 
 interface Props {
   children?: any;
@@ -21,9 +16,7 @@ const Layout = ({ children, navItems }: Props) => {
       <div className={b('main')}>
         <Sidebar navItems={navItems} />
         <div className={b('main-content')}>
-          {/* <Sentry.ErrorBoundary fallback={ErrorOverlay}> */}
             {children}
-          {/* </Sentry.ErrorBoundary> */}
         </div>
       </div>
     </div>

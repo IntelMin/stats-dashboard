@@ -1,0 +1,26 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/common';
+@import 'styles/utils';
+// MarketName  component
+.market-name {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+  
+    &__icon {
+      display: block;
+      width: 28px;
+      height: 28px;
+      margin-right: 0.5em;
+    }
+  
+    &__arrow {
+      margin: 0 5px;
+    }
+  }
+
+
+// DataGrid component
+
+
+// SearchBar component

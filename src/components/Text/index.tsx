@@ -33,7 +33,7 @@ type Props = {
   align?: Align;
 }
 
-function Text(props: React.PropsWithChildren<Props>) {
+const  Text = (props: React.PropsWithChildren<Props>) => {
   const {
     className,
     as = 'div',

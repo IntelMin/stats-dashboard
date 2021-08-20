@@ -5,11 +5,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Redirect, Route, Switch } from 'react-router';
 import NotFound from 'pages/NotFound';
-import TradingLog from './pages/TradingLog';
+import EventsMonitor from './pages/EventsMonitor';
 import { Layout } from 'pages/Layout';
 
 const navs = [
-  { text: 'Events Monitor', icon: faTachometerAlt, to: `/tradinglog`, component: TradingLog }
+  { text: 'Events Monitor', icon: faTachometerAlt, to: `/eventslog`, component: EventsMonitor }
 ]
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           )
         })
       }
-      <Redirect exact from="/" to="/tradelog" />
+      <Redirect exact from="/" to="/eventslog" />
       <Route component={NotFound} />
     </Switch>
   </Layout>
