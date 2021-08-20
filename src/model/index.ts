@@ -7,5 +7,8 @@ export type MonlogTrades = {
   kind: number;
   param1: BN;
   param2: BN;
+  market:{
+    id:string
+  }
 };
 

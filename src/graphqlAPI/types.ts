@@ -24,6 +24,9 @@ export const MonlogTradesDocument = gql`
             kind
             param1
             param2
+            market{
+              id
+            }
     }}
     `;
 
@@ -52,12 +55,15 @@ export const MonlogTradesDocument = gql`
     kind: Scalars['Int'];
     param1: Scalars['BigDecimal'];
     param2: Scalars['BigDecimal'];
+    market:{
+      id:Scalars['ID']
+    }
   };
  export type MonlogTradesQuery = (
     { __typename?: 'Query' }
     & { monlogTrades: Array<(
       { __typename?: 'MonlogTrade' }
-      & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2'>
+      & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
     )> }
   );
   export type MonlogTradesQueryVariables = Exact<{ [key: string]: never; }>;

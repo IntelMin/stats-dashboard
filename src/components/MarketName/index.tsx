@@ -6,7 +6,6 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import nerveLogo from 'assets/market_nerve.png';
 import { config } from 'config';
 
-import './style.scss';
 
 type Props = {
   marketID: string;
@@ -21,7 +20,7 @@ const MarketName = ({ marketID, withAssetSymbol }: Props) => {
     () => (config.marketsNames[marketID] ? nerveLogo : ''),
     [marketID],
   );
-
+  console.log("marketId->>",marketID)
   return (
     <div className={b()}>
       <img

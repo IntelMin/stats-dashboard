@@ -14,6 +14,7 @@ const convert = memoize(
       kind: monlogtrade.kind,
       param1: monlogtrade.param1,
       param2: monlogtrade.param2,
+      market: monlogtrade.market,
     })) ?? [],
 );
 

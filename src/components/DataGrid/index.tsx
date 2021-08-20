@@ -30,51 +30,53 @@ type Props = {
 export const DataGrid = (props: Props) => {
   const { columns, data, hasHead = true } = props;
   return (
-    <table className={b()} cellPadding="0" cellSpacing="2">
-      {hasHead && (
-        <thead className={b('head')}>
-          {columns.map((row, i) => (
-            <tr key={i}>
-              {row.map((heading, j) => (
-                <th
+    <div className = "table-wrapper">
+      <table className={b()} cellPadding="0" cellSpacing="2">
+        {hasHead && (
+          <thead className={b('head')}>
+            {columns.map((row, i) => (
+              <tr key={i}>
+                {row.map((heading, j) => (
+                  <th
+                    key={j}
+                    className={b('heading', {
+                      align: heading.align,
+                      'disable-padding': columns?.[0]?.[j]?.disablePadding,
+                    })}
+                    colSpan={heading.colSpan}
+                    style={{ minWidth: heading.minWidth }}
+                  >
+                    <span>{heading.label}</span>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+        )}
+        <tbody>
+          {data.map((row, i) => (
+            <tr key={i} className={b('row')}>
+              {row.map((cell, j) => (
+                <td
                   key={j}
-                  className={b('heading', {
-                    align: heading.align,
-                    'disable-padding': columns?.[0]?.[j]?.disablePadding,
-                  })}
-                  colSpan={heading.colSpan}
-                  style={{ minWidth: heading.minWidth }}
+                  className={b('cell')}
+                  style={{ minWidth: columns?.[0]?.[j]?.minWidth }}
                 >
-                  <span>{heading.label}</span>
-                </th>
+                  <div
+                    className={b('cell-inner', {
+                      align: columns?.[0]?.[j]?.align,
+                      'disable-padding': columns?.[0]?.[j]?.disablePadding,
+                    })}
+                  >
+                    {cell}
+                  </div>
+                </td>
               ))}
             </tr>
           ))}
-        </thead>
-      )}
-      <tbody>
-        {data.map((row, i) => (
-          <tr key={i} className={b('row')}>
-            {row.map((cell, j) => (
-              <td
-                key={j}
-                className={b('cell')}
-                style={{ minWidth: columns?.[0]?.[j]?.minWidth }}
-              >
-                <div
-                  className={b('cell-inner', {
-                    align: columns?.[0]?.[j]?.align,
-                    'disable-padding': columns?.[0]?.[j]?.disablePadding,
-                  })}
-                >
-                  {cell}
-                </div>
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

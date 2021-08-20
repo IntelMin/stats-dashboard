@@ -32,11 +32,16 @@
 .logs-option{
   background-color: #2b4156!important;
 }
+.logs-option-text{
+  padding: 5px;
+}
 .MuiSelect-select.MuiSelect-select{
   color: #dad2d2;
+  padding: 5px;
 }
 .MuiInputLabel-animated {
 color: #848186!important;
+margin-left: 4px;
 }
 .MuiTablePagination-root {
   color: #b1a0a0 !important;
@@ -44,3 +49,4 @@ color: #848186!important;
 .MuiSelect-icon {
   color: white;
 }
+
