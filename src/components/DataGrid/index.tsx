@@ -27,7 +27,7 @@ type Props = {
   data: (string | JSX.Element)[][];
 };
 
-const DataGrid = (props: Props) => {
+export const DataGrid = (props: Props) => {
   const { columns, data, hasHead = true } = props;
   return (
     <table className={b()} cellPadding="0" cellSpacing="2">
@@ -78,4 +78,3 @@ const DataGrid = (props: Props) => {
   );
 };
 
-export { DataGrid };
