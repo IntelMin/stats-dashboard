@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import memoize from 'memoize-one';
 
 import { MonlogTrades } from 'model';
@@ -18,14 +18,31 @@ const convert = memoize(
     })) ?? [],
 );
 
-export function useMonlogTrades() {
+export const useMonlogTrades = (market, kind) => {
+
+  const [filter, setFilter] = useState({})
   const { data, loading, startPolling, stopPolling, networkStatus } =
-  useMonlogTradesQuery({});
+    useMonlogTradesQuery(filter);
+  
+  useEffect(() => {
+
+    let _filter = {};
+
+    if(kind !== -1)
+      _filter['kind'] = kind;
+      
+    if(market !== '')
+      _filter['market'] = market;
+
+    console.log("Query Filter:", _filter);
+    setFilter(_filter);
+
+  },[market,kind])
 
   useEffect(() => {
     startPolling(10000);
     return stopPolling;
-  }, [startPolling, stopPolling]);
+  }, [startPolling, stopPolling, filter]);
 
   useEffect(() => {
     if (networkStatus === NetworkStatus.error) {

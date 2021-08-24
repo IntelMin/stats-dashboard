@@ -18,3 +18,7 @@ export const BNtoNum = (value, decimal = 18) => {
 export const NumToBN = (value, decimal = 18) => {
     return new BN(value).shiftedBy(decimal);
 }
+
+export const stringifyWithoutQuotes = (object) => {
+    return JSON.stringify(object).replace(/"([^"]+)":/g, '$1:');
+}

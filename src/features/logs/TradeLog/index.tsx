@@ -6,53 +6,44 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import { DataGrid, MarketName } from '../../../components'
-import  { BN } from  '../../../utils/bigNumber'
+//import  { BN } from  '../../../utils/bigNumber'
 import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
 
-interface Market {
-  id: string
-}
+// interface Market {
+//   id: string
+// }
 
-interface TradeLogs {
-  id: string;
-  created: BN;
-  kind: number;
-  param1: BN;
-  param2: BN;  
-  market: Market;
-}
+// interface TradeLogs {
+//   id: string;
+//   created: BN;
+//   kind: number;
+//   param1: BN;
+//   param2: BN;  
+//   market: Market;
+// }
 
 const TradeLog = () => {
-  const { monlogTrades } = useMonlogTrades();
   const [page, setPage] = useState(0);
-  const [displayLogs, setDisplayLogs] = useState<TradeLogs[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [count, setCount ] = useState(0);
-  const [market, setMarket] = useState<{ value: string | number; name: string }>({
-    value: 20,
-    name: '',
-  });
-  const [kind, setKind] = useState<{ value: string | number; name: string }>({
-    value: 20,
-    name: '',
-  });
+  const [market, setMarket] = useState<string>('');
+  const [kind, setKind] = useState<number>(-1);
+  const { monlogTrades } = useMonlogTrades(market, kind);
 
-  const handleChangeMarket = useCallback((event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    const name = event.target.name as keyof typeof market;
-    console.log(name,event.target.value)
-    setMarket({
-      ...market,
-      [name]: event.target.value,
-    });
-  },[market])
+  useEffect(() => {
+    if (monlogTrades) {
+      setCount(monlogTrades.length);
+    }
+  }, [monlogTrades])
 
-  const handleChangeKind = useCallback((event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    const name = event.target.name as keyof typeof kind;
-    console.log(name,event.target.value)
-    setKind({
-      ...market,
-      [name]: event.target.value,
-    });
+  const handleChangeMarket = useCallback((event) => {
+    console.log("Market selected:", event.target.value)
+    setMarket(event.target.value);
+  }, [market])
+
+  const handleChangeKind = useCallback((event) => {
+    console.log("Kind selected:", event.target.value)
+    setKind(Number(event.target.value));
   }, [kind]);
 
   const kinds  = [{value:-1,text:"-"},
@@ -66,19 +57,19 @@ const TradeLog = () => {
 
   const getKindName = (kind) =>{
     var kindName = "";
-            switch (kind) {
-              case 0: kindName = "Close Position"; break;
-              case 1: kindName = "Open Long Position"; break;
-              case 2: kindName = "Open Short Position"; break;
-              case 3: kindName = "Liquidate Position"; break;
-              case 4: kindName = "Add Collateral"; break;
-              case 5: kindName = "Remove Collateral"; break;
-              default: kindName = "Unknown Log"; break;
-            }
+    switch (kind) {
+      case 0: kindName = "Close Position"; break;
+      case 1: kindName = "Open Long Position"; break;
+      case 2: kindName = "Open Short Position"; break;
+      case 3: kindName = "Liquidate Position"; break;
+      case 4: kindName = "Add Collateral"; break;
+      case 5: kindName = "Remove Collateral"; break;
+      default: kindName = "Unknown Log"; break;
+    }
     return kindName;
   }
 
-  const getData = (kind,param1, param2) =>{
+  const formatParams = (kind,param1, param2) =>{
     var data = "";
     switch (kind) {
       case 0: data = "CloseRatio: " + BNtoNum(param1) ; break;
@@ -91,34 +82,18 @@ const TradeLog = () => {
     }
     return data;
   }
-  const getDisplayLogs = (rowsPerPage, page) => {
-    const logs =  monlogTrades.slice(rowsPerPage*page,rowsPerPage*(page+1));
-    return logs;
-  }
 
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = useCallback((event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     if(event) {
       setPage(newPage);
     }
-  };
+  },[page]);
 
-  const handleChangeRowsPerPage = (
+  const handleChangeRowsPerPage = useCallback((
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-  };
-
-  useEffect(() => {
-    console.log(monlogTrades)
-    const logsLength = monlogTrades.length || 0
-    setCount(logsLength);
-    const logs = getDisplayLogs(rowsPerPage,page);
-    setDisplayLogs(logs)
-  }, [monlogTrades]);
-
-  useEffect(() => {
-    setDisplayLogs(getDisplayLogs(rowsPerPage,page))
-  }, [page,rowsPerPage]);
+  },[rowsPerPage]);
   
   return (
     <>
@@ -129,15 +104,15 @@ const TradeLog = () => {
         <Select
             native
             disableUnderline
-            value={market.value}
+            value={market}
             onChange={handleChangeMarket}
             inputProps={{
               name: 'value',
               id: 'market-native',
             }}
             >
-            <option className="logs-option" value={10}>-</option>
-            <option className="logs-option" value={20}>Nerve</option>
+            <option className="logs-option" value={''}>-</option>
+            <option className="logs-option" value={'Nerve'}>Nerve</option>
         </Select>
       </FormControl>
       <FormControl className="logs-kind-filter">
@@ -145,7 +120,7 @@ const TradeLog = () => {
         <Select
           native
           disableUnderline
-          value={kind.value}
+          value={kind}
           onChange={handleChangeKind}
           inputProps={{
             name: 'value',
@@ -167,12 +142,12 @@ const TradeLog = () => {
             { label: 'Time' }
           ]
         ]}
-        data={displayLogs?.map((log, index) =>
+        data={monlogTrades?.map((log, index) =>
           [
-          <div>{ index + 1 }</div>,
+          <div>{ rowsPerPage*(page)+ index + 1 }</div>,
           <MarketName marketID={log.market.id} />,
           <div>{ getKindName(log.kind) }</div>,
-          <div>{ getData(log.kind, log.param1,log.param2) }</div>,
+          <div>{ formatParams(log.kind, log.param1,log.param2) }</div>,
           <div>{ getStringFromTimestamp(log.created)}</div>,          
         ])}
     />
