@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import memoize from 'memoize-one';
 
-import { MonlogTrades } from 'model';
+// import { MonlogTrades } from 'model';
 import { useMonlogTradesQuery, MonlogTradesQuery } from '../types';
 
 import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
-  (response?: MonlogTradesQuery): MonlogTrades[] =>
+  (response?: MonlogTradesQuery): any=>
     response?.monlogTrades?.map((monlogtrade) => ({
       id: monlogtrade.id,
       created: monlogtrade.created,
@@ -18,26 +18,35 @@ const convert = memoize(
     })) ?? [],
 );
 
-export const useMonlogTrades = (market, kind) => {
+const convert1 = memoize(
+  (response?: MonlogTradesQuery): any=>
+    response?.markets?.map((market) => ({
+      id: market.id
+    })) ?? [],
+);
 
+export const useMonlogTrades = (market, kind, first, sk) => {
+  
   const [filter, setFilter] = useState({})
   const { data, loading, startPolling, stopPolling, networkStatus } =
     useMonlogTradesQuery(filter);
-  
+  console.log("monlogData==>>",data)
   useEffect(() => {
 
     let _filter = {};
-
+    _filter['filter'] = {};
     if(kind !== -1)
-      _filter['kind'] = kind;
+      _filter['filter']['kind'] = kind;
       
-    if(market !== '')
-      _filter['market'] = market;
+    if(market !== '-')
+      _filter['filter']['market'] = market;
 
+    _filter['first'] = first;
+    _filter['sk'] = sk
     console.log("Query Filter:", _filter);
     setFilter(_filter);
 
-  },[market,kind])
+  },[market,kind,first,sk])
 
   useEffect(() => {
     startPolling(10000);
@@ -50,5 +59,5 @@ export const useMonlogTrades = (market, kind) => {
     }
   }, [networkStatus]);
 
-  return { monlogTrades: convert(data), loading };
+  return { monlogTrades: convert(data), markets: convert1(data), loading };
 }

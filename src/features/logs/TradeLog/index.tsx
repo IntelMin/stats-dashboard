@@ -6,35 +6,23 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import { DataGrid, MarketName } from '../../../components'
-//import  { BN } from  '../../../utils/bigNumber'
 import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
-
-// interface Market {
-//   id: string
-// }
-
-// interface TradeLogs {
-//   id: string;
-//   created: BN;
-//   kind: number;
-//   param1: BN;
-//   param2: BN;  
-//   market: Market;
-// }
+import { config } from '../../../config';
 
 const TradeLog = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [count, setCount ] = useState(0);
-  const [market, setMarket] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [count, setCount ] = useState(1000);
+  const [market, setMarket] = useState<string>('-');
   const [kind, setKind] = useState<number>(-1);
-  const { monlogTrades } = useMonlogTrades(market, kind);
+  const { monlogTrades, markets } = useMonlogTrades(market, kind, rowsPerPage, page*rowsPerPage);
 
   useEffect(() => {
-    if (monlogTrades) {
-      setCount(monlogTrades.length);
+    setCount(1000)
+    if (markets) {
+      console.log("markets->>",markets)
     }
-  }, [monlogTrades])
+  }, [markets])
 
   const handleChangeMarket = useCallback((event) => {
     console.log("Market selected:", event.target.value)
@@ -55,7 +43,7 @@ const TradeLog = () => {
                   {value:5, text:"Remove Collateral"}];
   console.log(monlogTrades);
 
-  const getKindName = (kind) =>{
+  const getKindName = (kind) => {
     var kindName = "";
     switch (kind) {
       case 0: kindName = "Close Position"; break;
@@ -67,6 +55,13 @@ const TradeLog = () => {
       default: kindName = "Unknown Log"; break;
     }
     return kindName;
+  }
+
+  const getMarketName = (id) => {
+    console.log(id)
+    let marketName;
+    marketName = config.marketsNames[id]?.name;
+    return marketName;
   }
 
   const formatParams = (kind,param1, param2) =>{
@@ -111,8 +106,11 @@ const TradeLog = () => {
               id: 'market-native',
             }}
             >
-            <option className="logs-option" value={''}>-</option>
-            <option className="logs-option" value={'Nerve'}>Nerve</option>
+            <option className="logs-option" value={'-'}>-</option>
+            { markets.map((market, index) => (
+               <option key={index} className="logs-option" value={market.id}>{getMarketName(market.id)}</option>
+              ))
+            }
         </Select>
       </FormControl>
       <FormControl className="logs-kind-filter">

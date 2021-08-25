@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import { stringifyWithoutQuotes } from '../utils/utils';
+import { MonlogTrades } from 'model';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -18,10 +19,10 @@ export type Scalars = {
   Bytes: any;
 };
 
-export const MonlogTradesDocument = (filter) => {
+export const MonlogTradesDocument = (op) => {
   const query = `
     query monlogTrades {
-      monlogTrades (where:${stringifyWithoutQuotes(filter)}) {
+      monlogTrades (where:${stringifyWithoutQuotes(op.filter||{})},first:${op.first},skip:${op.sk}) {
         id
         created
         kind
@@ -29,8 +30,12 @@ export const MonlogTradesDocument = (filter) => {
         param2
         market{
           id
+        }
       }
-    }}
+      markets {
+        id
+      }
+    }
   `;
   console.log("Query: ", query);
   return gql(query);
@@ -63,25 +68,37 @@ export type MonlogTrade = {
   market:{
     id:Scalars['ID']
   }
+
+};
+
+export type Markets = {
+  __typename?: 'markets';
+  /**  address of contract  */
+  id: Scalars['ID'];
 };
 
 export type MonlogTradesQuery = (
   { __typename?: 'Query' }
   & { monlogTrades: Array<(
-    { __typename?: 'MonlogTrade' }
-    & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
-  )> }
+        { __typename?: 'MonlogTrade' }
+        & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
+      )> 
+      markets: Array<(
+      { __typename?: 'Market' }
+      & Pick<Markets, 'id'>
+      )> 
+    }
 );
 
 export type MonlogTradesQueryVariables = any;
 
-export function useMonlogTradesQuery(baseOptions?: Apollo.QueryHookOptions<MonlogTradesQuery, MonlogTradesQueryVariables>) {
+export const useMonlogTradesQuery = (baseOptions?: Apollo.QueryHookOptions<MonlogTradesQuery, MonlogTradesQueryVariables>) => {
   const options = {...defaultOptions, ...baseOptions}
   
   console.log("options-->",options)
   return Apollo.useQuery<MonlogTradesQuery, MonlogTradesQueryVariables>(MonlogTradesDocument(options), options);
 }
-export function useMonlogTradesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MonlogTradesQuery, MonlogTradesQueryVariables>) {
+export const useMonlogTradesLazyQuery = (baseOptions?: Apollo.LazyQueryHookOptions<MonlogTradesQuery, MonlogTradesQueryVariables>) => {
   const options = {...defaultOptions, ...baseOptions}
   
   return Apollo.useLazyQuery<MonlogTradesQuery, MonlogTradesQueryVariables>(MonlogTradesDocument(options), options);
@@ -90,4 +107,38 @@ export type MarketsQueryHookResult = ReturnType<typeof useMonlogTradesQuery>;
 export type MarketsLazyQueryHookResult = ReturnType<typeof useMonlogTradesLazyQuery>;
 export type MarketsQueryResult = Apollo.QueryResult<MonlogTradesQuery, MonlogTradesQueryVariables>;
 
+export const MarketsDocument = (op) => {
+  console.log("op-->>",op)
+  const query = `
+    query markets {
+      markets (first:${op.first|10},skip:${op.sk|0}) {
+        id
+      }
+      monlogTrades{
+        id
+      }
+    }
+  `;
+  return gql(query);
+} 
+
+export type MarketsQuery = (
+  {
+  __typename?: 'Query' }
+  & { markets: Array<(
+      { __typename?: 'Market' }
+      & Pick<Markets, 'id'>
+      )> 
+     monlogTrades: Array<(
+      { __typename?: 'MonlogTrades' }
+      & Pick<MonlogTrades, 'id'>
+     )>
+})
+export type MarketsQueryVariables = any;
+export const useMarketsQuery = (baseOptions?: Apollo.QueryHookOptions<MarketsQuery, MarketsQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<MarketsQuery, MarketsQueryVariables>(MarketsDocument(options), options);
+}
 

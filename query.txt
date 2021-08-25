@@ -1,0 +1,13 @@
+ monlogTrades (where:{},skip:2,) {
+        id
+        created
+        kind
+        param1
+        param2
+        market{
+          id
+        }
+      }
+      markets {
+        id
+      }
