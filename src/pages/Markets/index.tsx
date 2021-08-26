@@ -3,6 +3,7 @@ import { IconButton  } from '@material-ui/core';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ListView from '../../features/markets/ListView'
+import ModuleView from '../../features/markets/ModuleView'
 const Markets = () => {
     const [viewModule,setViewModule] = useState(true);
     const toggleView = () =>{
@@ -15,8 +16,7 @@ const Markets = () => {
                 <IconButton onClick={toggleView}><ViewListIcon className={!viewModule ? "marked_view_selected" : ""}/></IconButton>
             </div>
             <div className="market_content">
-                {viewModule ? (<h1>ViewModule</h1>)
-                    :(<ListView></ListView>)
+                {viewModule ? (<ModuleView/>):(<ListView/>)
                 }
             </div>
         </div>    

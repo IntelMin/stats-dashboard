@@ -15,7 +15,7 @@ const Layout = ({ children, navItems }: Props) => {
       <Header className={b('header')} />
       <div className={b('main')}>
         <Sidebar navItems={navItems} />
-        <div className={b('main-content')}>
+        <div id="scrollableDiv" className={b('main-content')}>
             {children}
         </div>
       </div>

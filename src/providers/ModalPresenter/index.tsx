@@ -1,7 +1,7 @@
 import style from './style.module.scss';
 import { useState, cloneElement } from 'react';
 import ModalContext, { ModalsContextInterface } from 'contexts/ModalContext';
-import classes from 'utils/classes';
+import { classes } from 'utils/utils';
 import { createPortal } from 'react-dom';
 
 interface Modal {

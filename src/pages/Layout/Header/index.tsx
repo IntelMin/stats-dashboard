@@ -1,6 +1,6 @@
 import logo from 'assets/logo_dark.png';
 import { NavLink } from 'react-router-dom';
-import classes from 'utils/classes';
+import { classes } from 'utils/utils';
 import style from './style.module.scss';
 
 interface Props {

@@ -1,62 +1,1032 @@
-import { useState, useEffect, useCallback} from 'react';
-import { useMarkets } from 'graphqlAPI';
-import TablePagination from '@material-ui/core/TablePagination';
-import { DataGrid } from '../../../components'
-
-const TradeLog = () => {
-  const [page, setPage] = useState<number>(1);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
-  const [count, setCount ] = useState(1000); 
-  const { markets } = useMarkets( rowsPerPage, page*rowsPerPage);
-
-  useEffect(() => {
-    setCount(1000)
-    if (markets) {
-      console.log("markets->>",markets)
+import { useEffect, useState } from 'react';
+// import { useMarkets } from 'graphqlAPI';
+import Card from '../../../components/Card';
+import InfiniteScroll from 'react-infinite-scroll-component';
+const marketData = [
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
     }
-  }, [markets])
-
-  const handleChangePage = useCallback((event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    if(event) {
-      setPage(newPage);
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
     }
-  },[page]);
-
-  const handleChangeRowsPerPage = useCallback((
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-  },[rowsPerPage]);
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
+  {
+    "assetSymbol": "��=�2\u0016\u0012;5�w�o��q\u001c��\u0010���\u0007\u0017Ia�\u001b\t��",
+    "created": "1629800072",
+    "createdAtBlock": "13",
+    "createdAtTransaction": "0xa13c7b5bcf8559147500fef21c9296c13fd40863a0bb253e34c13e20198a5af8",
+    "id": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+    "liquidity": "1000841300332631042752305",
+    "name": "�M%Ou%y��k�eԶ����y��\u0002'�c����UN",
+    "price": {
+      "id": "162980037917",
+      "marketPrice": "201240000000000000",
+      "oraclePrice": "223600000000000000",
+      "timestamp": "1629800379"
+    },
+    "priceDailyChange": null,
+    "stakedPnl": "841120945826916",
+    "token": {
+      "id": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      "symbol": "SLP",
+      "totalSupply": "1000000000000000000000000"
+    }
+  },
   
+]
+const ModuleView = () => {
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  // const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  // const [count, setCount ] = useState(1000);
+  // const { markets } = useMarkets(10, page * 10);
+  const [marketsDisplay, setMarketsDisplay] = useState<any>([]);
+  // const [loading, setLoading] = useState(false);
+  useEffect(()=>{
+    loadMoreMarket(page)
+  }, [])
+  useEffect(()=>{
+    if(page * 10 > marketData.length)
+      setHasMore(false)
+  }, [page, marketData])
+  
+  // useEffect(() => {
+    // if (markets) {
+      // console.log("module view markets->>",markets)
+    // }
+  // }, [markets])
+  
+  const loadMoreMarket = (page) => {
+    
+    setTimeout(() => {
+      setMarketsDisplay( marketData.slice(0, (page + 1) * 10) );
+      setPage(page + 1)
+    }, 1500);
+  }
+
+
   return (
     <>
-      <DataGrid
-        columns={[
-          [
-            { label: 'No' },
-            { label: "Market"},
-            { label: 'Kind' },
-            { label: 'Data' },
-            { label: 'Time' }
-          ]
-        ]}
-        data={markets?.map((log, index) =>
-          [
-          <div>{ rowsPerPage*(page)+ index + 1 }</div>,
-          <div> { log.id} </div>
-                   
-        ])}
-    />
-    <TablePagination
-      component="div"
-      count={count}
-      page={page}
-      onPageChange={handleChangePage}
-      rowsPerPage={rowsPerPage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
-    />
-  </>
+      <InfiniteScroll
+        dataLength={marketsDisplay.length}
+        next={ () => loadMoreMarket(page)}
+        hasMore={hasMore}
+        loader={<h4 className="lazy-loading">Loading...</h4>}
+        scrollableTarget="scrollableDiv"
+        className="card-grid"
+      >
+        {marketsDisplay.map((market, index) => {
+          return <Card market={market} key={index} />
+        })}
+      </InfiniteScroll>
+    </>
+    // <div className="card-grid">
+    // {
+    //   marketData.map((market, index) => {
+    //     return <Card market={market} key={index} />
+    //   })
+    // } 
+    // </div>
   );
 };
 
-export default TradeLog;
+export default ModuleView;

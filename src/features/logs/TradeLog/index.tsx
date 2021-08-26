@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback} from 'react';
+import { useState, useEffect } from 'react';
 import { useMonlogTrades } from 'graphqlAPI';
 import Select from '@material-ui/core/Select';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -10,7 +10,7 @@ import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
 import { config } from '../../../config';
 
 const TradeLog = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [count, setCount ] = useState(1000);
   const [market, setMarket] = useState<string>('-');
@@ -24,15 +24,15 @@ const TradeLog = () => {
     }
   }, [markets])
 
-  const handleChangeMarket = useCallback((event) => {
+  const handleChangeMarket = (event) => {
     console.log("Market selected:", event.target.value)
     setMarket(event.target.value);
-  }, [market])
+  }
 
-  const handleChangeKind = useCallback((event) => {
+  const handleChangeKind = (event) => {
     console.log("Kind selected:", event.target.value)
     setKind(Number(event.target.value));
-  }, [kind]);
+  }
 
   const kinds  = [{value:-1,text:"-"},
                   {value:0,text:"Close Position"},
@@ -67,28 +67,26 @@ const TradeLog = () => {
   const formatParams = (kind,param1, param2) =>{
     var data = "";
     switch (kind) {
-      case 0: data = "CloseRatio: " + BNtoNum(param1) ; break;
-      case 1: data = "Collateral: " + BNtoNum(param1) + ", " + "Leverage: " + param2; break;
-      case 2: data = "Collateral: " + BNtoNum(param1) + ", " + "Leverage: " + param2; break;
+      case 0: data = `CloseRatio:  ${BNtoNum(param1)}` ; break;
+      case 1: data = `Collateral:  ${BNtoNum(param1)}, Leverage: ${param2}`; break;
+      case 2: data = `Collateral: ${BNtoNum(param1)}, Leverage: ${param2}`; break;
       case 3: data = "0" ; break;
-      case 4: data = "Collateral: " + BNtoNum(param1) ; break;
-      case 5: data = "Collateral: " + BNtoNum(param1) ; break;
+      case 4: data = `Collateral: ${BNtoNum(param1)}` ; break;
+      case 5: data = `Collateral: ${BNtoNum(param1)}` ; break;
       default: data = "Unknown Log"; break;
     }
     return data;
   }
 
-  const handleChangePage = useCallback((event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     if(event) {
       setPage(newPage);
     }
-  },[page]);
+  }
 
-  const handleChangeRowsPerPage = useCallback((
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleChangeRowsPerPage = ( event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-  },[rowsPerPage]);
+  }
   
   return (
     <>

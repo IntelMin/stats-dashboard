@@ -6,7 +6,7 @@ import { DataGrid } from '../../../components'
 // import { config } from '../../../config';
 
 const ListView = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [count, setCount ] = useState(1000);
   const { markets } = useMarkets(rowsPerPage, page*rowsPerPage);

@@ -8,11 +8,12 @@ import { Redirect, Route, Switch } from 'react-router';
 import NotFound from 'pages/NotFound';
 import EventsMonitor from './pages/EventsMonitor';
 import Markets from './pages/Markets';
+import DetailView from './features/markets/DetailView'
 import { Layout } from 'pages/Layout';
 
 const navs = [
   { text: 'Events Monitor', icon: faTachometerAlt, to: `/eventslog`, component: EventsMonitor },
-  { text: 'Markets', icon: faGifts, to: '/markets',component: Markets}
+  { text: 'Markets', icon: faGifts, to: '/markets',component: Markets},
 ]
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     navItems={navs}
   >
     <Switch>
+      <Route exact path="/markets/:id" component={DetailView} />
       {
         navs.map((nav) => {
           return (

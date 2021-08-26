@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { block, classnames } from 'utils/classname';
+import { block, classnames } from 'utils/utils';
 
 import './style.scss';
 
