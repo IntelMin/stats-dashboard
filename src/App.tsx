@@ -8,10 +8,12 @@ import { Redirect, Route, Switch } from 'react-router';
 import NotFound from 'pages/NotFound';
 import EventsMonitor from './pages/EventsMonitor';
 import Markets from './pages/Markets';
+import GeneralInfo from './pages/GeneralInfo';
 import DetailView from './features/markets/DetailView'
 import { Layout } from 'pages/Layout';
 
 const navs = [
+  { text: "General Info", icon: faTachometerAlt, to: '/generalinfo', component: GeneralInfo },
   { text: 'Events Monitor', icon: faTachometerAlt, to: `/eventslog`, component: EventsMonitor },
   { text: 'Markets', icon: faGifts, to: '/markets',component: Markets},
 ]
