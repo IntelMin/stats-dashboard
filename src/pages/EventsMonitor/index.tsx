@@ -1,4 +1,5 @@
-import TradeLog from '../../features/logs/TradeLog'
+import TradeLog from '../../features/logs/TradeLog';
+import StakeLog from '../../features/logs/StakeLog'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const EventsMonitor = () => {
@@ -9,18 +10,15 @@ const EventsMonitor = () => {
       <Tabs>
         <TabList>
           <Tab>Trade Logs</Tab>
-          <Tab>Account Logs</Tab>
-          <Tab>Insurance Logs</Tab>
+          <Tab>Stake Logs</Tab>
+          {/* <Tab>Insurance Logs</Tab> */}
         </TabList>
 
         <TabPanel>
           <TradeLog />
         </TabPanel>
         <TabPanel>
-          <h2>Account Logs</h2>
-        </TabPanel>
-        <TabPanel>
-          <h2>Insurance Logs</h2>
+          <StakeLog/>
         </TabPanel>
       </Tabs>
     </div>

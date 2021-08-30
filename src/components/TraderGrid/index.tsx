@@ -4,7 +4,7 @@ import { Grid, Accordion, AccordionDetails, AccordionSummary, Tooltip, Link, Typ
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { getShortAddress } from 'utils/utils';
 import { getStringFromTimestamp, BNtoNum } from '../../utils/utils'
-import { MarketName } from '../../components'
+import { MarketName } from '..'
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -26,7 +26,8 @@ const useStyles = makeStyles(() =>
   }),
 );  
 
-export const MarketGrid = ({ data, page, rowsPerPage }) => {
+export const TraderGrid = ({ data, page, rowsPerPage }) => {
+  console.log(data, page, rowsPerPage)
   const classes = useStyles();
   const [expanded, setExpanded] = useState<string | false>(false);
 

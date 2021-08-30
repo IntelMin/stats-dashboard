@@ -71,10 +71,23 @@ export type MonlogTrade = {
 
 };
 
-export type Markets = {
-  __typename?: 'markets';
+export type MonlogMarkets = {
+  __typename?: 'monlogMarkets';
   /**  address of contract  */
   id: Scalars['ID'];
+  totalTraders: Scalars['Int'];
+  totalStakers: Scalars['Int'];
+  totalLongs: Scalars['Int'];
+  totalShorts: Scalars['Int'];
+  totalLongsHistorical: Scalars['Int'];
+  totalShortsHistorical: Scalars['Int'];
+  ratio : Scalars['Int'];
+  demand: Scalars['Int'];
+  supply: Scalars['Int'];
+  stakedLiquidity: Scalars['Int'];
+  unrealizedPNL: Scalars['Int'];
+  initialPrice: Scalars['Int'];
+  marketPrice: Scalars['Int'];
 };
 
 export type MonlogTradesQuery = (
@@ -85,7 +98,7 @@ export type MonlogTradesQuery = (
       )> 
       markets: Array<(
       { __typename?: 'Market' }
-      & Pick<Markets, 'id'>
+      & Pick<MonlogMarkets, 'id'>
       )> 
     }
 );
@@ -110,9 +123,21 @@ export type MarketsQueryResult = Apollo.QueryResult<MonlogTradesQuery, MonlogTra
 export const MarketsDocument = (op) => {
   console.log("op-->>",op)
   const query = `
-    query markets {
-      markets (first:${op.first|10},skip:${op.sk|0}) {
+    query monlogMarkets  {
+      monlogMarkets (first:${op.first|10},skip:${op.sk|0}) {
         id
+        demand
+        marketPrice
+        ratio
+        stakedLiquidity
+        supply
+        totalLongs
+        totalLongsHistorical
+        totalShorts
+        totalShortsHistorical
+        totalStakers
+        totalTraders
+        unrealizedPNL
       }
       monlogTrades{
         id
@@ -125,9 +150,9 @@ export const MarketsDocument = (op) => {
 export type MarketsQuery = (
   {
   __typename?: 'Query' }
-  & { markets: Array<(
-      { __typename?: 'Market' }
-      & Pick<Markets, 'id'>
+  & { monlogMarkets: Array<(
+      { __typename?: 'monlogMarkets' }
+      & Pick<MonlogMarkets, 'id' | 'demand' | 'marketPrice' | 'ratio' | 'stakedLiquidity' | 'supply' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalStakers' | 'totalTraders' | 'unrealizedPNL'>
       )> 
      monlogTrades: Array<(
       { __typename?: 'MonlogTrades' }
@@ -141,4 +166,117 @@ export const useMarketsQuery = (baseOptions?: Apollo.QueryHookOptions<MarketsQue
   console.log("options-->",options)
   return Apollo.useQuery<MarketsQuery, MarketsQueryVariables>(MarketsDocument(options), options);
 }
+
+
+export type MonlogStake = {
+  __typename?: 'monlogTrades';
+  id: Scalars['ID'];
+  created: Scalars['BigInt'];
+  kind: Scalars['Int'];
+  param1: Scalars['BigDecimal'];
+  param2: Scalars['BigDecimal'];
+  market:{
+    id:Scalars['ID']
+  }
+};
+
+export const MonlogStakesDocument = (op) => {
+  const query = `
+    query monlogStakes {
+      monlogStakes (where:${stringifyWithoutQuotes(op.filter||{})},first:${op.first},skip:${op.sk}) {
+        id
+        created
+        kind
+        param1
+        param2
+        market{
+          id
+        }
+      }
+      markets {
+        id
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+
+
+export type MonlogStakesQueryVariables = any;
+
+export const useMonlogStakesQuery = (baseOptions?: Apollo.QueryHookOptions<MonlogStakesQuery, MonlogStakesQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<MonlogStakesQuery, MonlogStakesQueryVariables>(MonlogStakesDocument(options), options);
+}
+export type MonlogStakesQuery = (
+  { __typename?: 'Query' }
+  & { monlogStakes: Array<(
+        { __typename?: 'MonlogStake' }
+        & Pick<MonlogStake, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
+      )> 
+      markets: Array<(
+        { __typename?: 'Market' }
+        & Pick<MonlogMarkets, 'id'>
+        )> 
+    }
+);
+
+
+export type GeneralInfo = {
+  __typename?: 'generalInfos';
+  totalMarkets: Scalars['Int'];
+  totalTraders: Scalars['Int'];
+  totalPositions: Scalars['Int'];
+  totalStakers: Scalars['Int'];
+  totalCollaterals: Scalars['Int'];
+  riskParams:{
+    id:Scalars['ID']
+  }
+};
+export const GeneralInfosDocument = () => {
+  const query = `
+    query generalInfos {
+      generalInfos {
+        id
+        created
+        kind
+        param1
+        param2
+        market{
+          id
+        }
+      }
+      markets {
+        id
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type GeneralInfosQueryVariables = any;
+export const useGeneralInfosQuery = (baseOptions?: Apollo.QueryHookOptions<GeneralInfosQuery, GeneralInfosQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<GeneralInfosQuery, GeneralInfosQueryVariables>(GeneralInfosDocument(), options);
+}
+export type GeneralInfosQuery = (
+  { __typename?: 'Query' }
+  & { generalInfos: Array<(
+        { __typename?: 'GeneralInfo' }
+        & Pick<GeneralInfo, 'totalMarkets' | 'totalTraders' | 'totalPositions' | 'totalStakers' | 'totalCollaterals' |'riskParams'>
+      )> 
+      markets: Array<(
+        { __typename?: 'Market' }
+        & Pick<MonlogMarkets, 'id'>
+        )> 
+    }
+);
+
 

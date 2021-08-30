@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Button, Tooltip, Typography } from '@material-ui/core';
 import { getShortAddress } from 'utils/utils';
-import { useState } from 'react';
-
+import { getStringFromTimestamp, BNtoNum } from '../../utils/utils';
+import { MarketName } from '../../components';
+import { config } from 'config';
 const useStyles = makeStyles({
   root: {
     maxWidth: '100%',
@@ -34,16 +36,16 @@ const StatisticsCard = ( {market} ) => {
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <div className="flex">
-          <span>Name:</span>
-          <span>{market.name}</span>
+          {/* <span>Name:</span> */}
+          <span><MarketName marketID={market.id} /></span>
         </div>
         <div className="flex">
           <span>Asset Symbol:</span>
-          <span>{market.assetSymbol}</span>
+          <span>{config.marketsNames[market.id].assetSymbol}</span>
         </div>
         <div className="flex">
           <span>Created At:</span>
-          <span><a href="https://www.google.com/" className={classes.link}>{market.created}</a></span>
+          <span><a href="https://www.google.com/" className={classes.link}>{getStringFromTimestamp(market.created)}</a></span>
         </div>
         <div className="flex">
           <span>Address:</span>
@@ -51,11 +53,11 @@ const StatisticsCard = ( {market} ) => {
         </div>
         <div className="flex">
           <span>Liquidity:</span>
-          <span>{market.liquidity}</span>
+          <span>{BNtoNum(market.liquidity)}</span>
         </div>
         <div className="flex">
           <span>Staked Liquidity:</span>
-          <span>{market.stakedPnl}</span>
+          <span>{BNtoNum(market.stakedPnl)}</span>
         </div>
         <div className="card-footer">
           <Button className={classes.action} onClick={() => setShowDetail(!showDetail)}>
@@ -65,19 +67,19 @@ const StatisticsCard = ( {market} ) => {
         {showDetail && <div>
           <div className="flex">
             <span>Market Price:</span>
-            <span>{market.price.marketPrice}</span>
+            <span>{BNtoNum(market.price.marketPrice)}</span>
           </div>
           <div className="flex">
             <span>Oracle Price:</span>
-            <span>{market.price.oraclePrice}</span>
+            <span>{BNtoNum(market.price.oraclePrice)}</span>
           </div>
           <div className="flex">
             <span>Demand:</span>
-            <span>{0}</span>
+            <span>{BNtoNum(market.demand)}</span>
           </div>
           <div className="flex">
             <span>Supply:</span>
-            <span>{0}</span>
+            <span>{BNtoNum(market.supply)}</span>
           </div>
           <div className="flex">
             <span>Positions:</span>
@@ -89,11 +91,11 @@ const StatisticsCard = ( {market} ) => {
           </div>
           <div className="flex">
             <span>Total Traders:</span>
-            <span>{0}</span>
+            <span>{market.traders}</span>
           </div>
           <div className="flex">
             <span>Total Stakers:</span>
-            <span>{0}</span>
+            <span>{market.stakers}</span>
           </div>
         </div>}
       </CardContent>

@@ -7,8 +7,20 @@ import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
   (response?: MarketsQuery): any =>
-    response?.markets?.map((market) => ({
+    response?.monlogMarkets?.map((market) => ({
       id: market.id,
+      demand: market.demand,
+      marketPrice: market.marketPrice,
+      ratio: market.ratio,
+      stakedLiquidity: market.stakedLiquidity,
+      supply: market.supply,
+      totalLongs: market.totalLongs,
+      totalLongsHistorical: market.totalLongsHistorical,
+      totalShorts: market.totalShorts,
+      totalShortsHistorical: market.totalLongsHistorical,
+      totalStakers: market.totalStakers,
+      totalTraders: market.totalTraders,
+      unrealizedPNL: market.unrealizedPNL
     })) ?? [],
 );
 const convert1 = memoize(

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 });
 
-const RiskParams = ( {} ) => {
+const RiskParams = ( ) => {
   const classes = useStyles();
 
   return (

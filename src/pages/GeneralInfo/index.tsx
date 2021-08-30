@@ -1,8 +1,11 @@
 import { Grid, Typography } from "@material-ui/core";
 import RiskParams from "components/RiskParams"
 import StatisticsCard from "components/StatisticsCard"
+import { useGeneralInfo } from 'graphqlAPI';
 
 const GeneralInfo = () => {
+    const { generalInfos } = useGeneralInfo();
+    console.log("generalInfos-->>",generalInfos)
     return (
         <>
             <Typography variant="h3" gutterBottom >Statistics</Typography>

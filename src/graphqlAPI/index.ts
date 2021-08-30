@@ -1,2 +1,4 @@
 export * from './graphAPIHooks/useMonlogTrades';
-export * from './graphAPIHooks/useMarkets'
+export * from './graphAPIHooks/useMarkets';
+export * from './graphAPIHooks/useMonlogStakes'; 
+export * from './graphAPIHooks/useGeneralInfo';
