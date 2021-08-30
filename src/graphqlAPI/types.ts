@@ -88,6 +88,7 @@ export type MonlogMarkets = {
   unrealizedPNL: Scalars['Int'];
   initialPrice: Scalars['Int'];
   marketPrice: Scalars['Int'];
+  created: Scalars['BigInt'];
 };
 
 export type MonlogTradesQuery = (
@@ -138,6 +139,7 @@ export const MarketsDocument = (op) => {
         totalStakers
         totalTraders
         unrealizedPNL
+        created
       }
       monlogTrades{
         id
@@ -152,7 +154,7 @@ export type MarketsQuery = (
   __typename?: 'Query' }
   & { monlogMarkets: Array<(
       { __typename?: 'monlogMarkets' }
-      & Pick<MonlogMarkets, 'id' | 'demand' | 'marketPrice' | 'ratio' | 'stakedLiquidity' | 'supply' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalStakers' | 'totalTraders' | 'unrealizedPNL'>
+      & Pick<MonlogMarkets, 'id' | 'demand' | 'marketPrice' | 'ratio' | 'stakedLiquidity' | 'supply' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalStakers' | 'totalTraders' | 'unrealizedPNL' | 'created'>
       )> 
      monlogTrades: Array<(
       { __typename?: 'MonlogTrades' }
@@ -174,7 +176,6 @@ export type MonlogStake = {
   created: Scalars['BigInt'];
   kind: Scalars['Int'];
   param1: Scalars['BigDecimal'];
-  param2: Scalars['BigDecimal'];
   market:{
     id:Scalars['ID']
   }
@@ -188,7 +189,6 @@ export const MonlogStakesDocument = (op) => {
         created
         kind
         param1
-        param2
         market{
           id
         }
@@ -216,7 +216,7 @@ export type MonlogStakesQuery = (
   { __typename?: 'Query' }
   & { monlogStakes: Array<(
         { __typename?: 'MonlogStake' }
-        & Pick<MonlogStake, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
+        & Pick<MonlogStake, 'id' | 'created' | 'kind' | 'param1' |'market'>
       )> 
       markets: Array<(
         { __typename?: 'Market' }
@@ -225,33 +225,32 @@ export type MonlogStakesQuery = (
     }
 );
 
-
 export type GeneralInfo = {
-  __typename?: 'generalInfos';
-  totalMarkets: Scalars['Int'];
-  totalTraders: Scalars['Int'];
-  totalPositions: Scalars['Int'];
-  totalStakers: Scalars['Int'];
-  totalCollaterals: Scalars['Int'];
-  riskParams:{
-    id:Scalars['ID']
+  __typename?: 'monlogStripsInfos';
+  id: Scalars['ID'];
+  totalTraders: Scalars['BigDecimal'];
+  totalStakers: Scalars['BigDecimal'];
+  totalLongs: Scalars['BigDecimal'];
+  totalLongsHistorical: Scalars['BigDecimal'];
+  totalShorts: Scalars['BigDecimal'];
+  totalShortsHistorical: Scalars['BigDecimal'];
+  totalCollaterals: Scalars['BigDecimal'];
+  riskParams: {
+
   }
 };
 export const GeneralInfosDocument = () => {
   const query = `
-    query generalInfos {
-      generalInfos {
+    query monlogStripsInfos {
+      monlogStripsInfos {
         id
-        created
-        kind
-        param1
-        param2
-        market{
-          id
-        }
-      }
-      markets {
-        id
+        totalTraders
+        totalStakers
+        totalLongs
+        totalLongsHistorical
+        totalShorts
+        totalShortsHistorical
+        totalCollaterals
       }
     }
   `;
@@ -268,9 +267,50 @@ export const useGeneralInfosQuery = (baseOptions?: Apollo.QueryHookOptions<Gener
 }
 export type GeneralInfosQuery = (
   { __typename?: 'Query' }
-  & { generalInfos: Array<(
+  & { monlogStripsInfos: Array<(
         { __typename?: 'GeneralInfo' }
-        & Pick<GeneralInfo, 'totalMarkets' | 'totalTraders' | 'totalPositions' | 'totalStakers' | 'totalCollaterals' |'riskParams'>
+        & Pick<GeneralInfo, 'id' | 'totalTraders' | 'totalStakers' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalCollaterals' >
+      )> 
+    }
+);
+
+export type Trader = {
+  __typename?: 'traders';
+  id: Scalars['ID'];
+  market: {
+    id: Scalars['ID'];
+  }
+};
+export const TradersDocument = (op) => {
+  const query = `
+    query traders {
+      traders(where:${stringifyWithoutQuotes(op.filter||{})},first:${op.first},skip:${op.sk}){
+        id
+        market{
+          id
+        }
+      }
+      markets {
+        id
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type TradersQueryVariables = any;
+export const useTradersQuery = (baseOptions?: Apollo.QueryHookOptions<TradersQuery, TradersQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<TradersQuery, TradersQueryVariables>(TradersDocument(options), options);
+}
+export type TradersQuery = (
+  { __typename?: 'Query' }
+  & { traders: Array<(
+        { __typename?: 'Traders' }
+        & Pick<Trader, 'id' | 'market'>
       )> 
       markets: Array<(
         { __typename?: 'Market' }
@@ -278,5 +318,51 @@ export type GeneralInfosQuery = (
         )> 
     }
 );
+
+export type Staker = {
+  __typename?: 'stakers';
+  id: Scalars['ID'];
+  market: {
+    id: Scalars['ID'];
+  }
+};
+export const StakersDocument = (op) => {
+  const query = `
+    query stakers {
+      stakers(where:${stringifyWithoutQuotes(op.filter||{})},first:${op.first},skip:${op.sk}){
+        id
+        market{
+          id
+        }
+      }
+      markets {
+        id
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type StakersQueryVariables = any;
+export const useStakersQuery = (baseOptions?: Apollo.QueryHookOptions<StakersQuery, StakersQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<StakersQuery, StakersQueryVariables>(StakersDocument(options), options);
+}
+export type StakersQuery = (
+  { __typename?: 'Query' }
+  & { stakers: Array<(
+        { __typename?: 'Stakers' }
+        & Pick<Staker, 'id' | 'market'>
+      )> 
+      markets: Array<(
+        { __typename?: 'Market' }
+        & Pick<MonlogMarkets, 'id'>
+        )> 
+    }
+);
+
 
 

@@ -35,23 +35,15 @@ const StakeLog = () => {
   }
 
   const kinds  = [{value:-1,text:"-"},
-                  {value:0,text:"Close Position"},
-                  {value:1,text:"Open Long Position"},
-                  {value:2,text:"Open Short Position"},
-                  {value:3,text:"Liquidate Position"},
-                  {value:4, text:"Add Collateral"},
-                  {value:5, text:"Remove Collateral"}];
+                  {value:0,text:"Stake"},
+                  {value:1,text:"Unstake"},];
   console.log(monlogStakes);
 
   const getKindName = (kind) => {
     var kindName = "";
     switch (kind) {
-      case 0: kindName = "Close Position"; break;
-      case 1: kindName = "Open Long Position"; break;
-      case 2: kindName = "Open Short Position"; break;
-      case 3: kindName = "Liquidate Position"; break;
-      case 4: kindName = "Add Collateral"; break;
-      case 5: kindName = "Remove Collateral"; break;
+      case 0: kindName = "Stake"; break;
+      case 1: kindName = "Unstake"; break;
       default: kindName = "Unknown Log"; break;
     }
     return kindName;
@@ -64,15 +56,11 @@ const StakeLog = () => {
     return marketName;
   }
 
-  const formatParams = (kind,param1, param2) =>{
+  const formatParams = (kind,param1) =>{
     var data = "";
     switch (kind) {
-      case 0: data = `CloseRatio:  ${BNtoNum(param1)}` ; break;
-      case 1: data = `Collateral:  ${BNtoNum(param1)}, Leverage: ${param2}`; break;
-      case 2: data = `Collateral: ${BNtoNum(param1)}, Leverage: ${param2}`; break;
-      case 3: data = "0" ; break;
-      case 4: data = `Collateral: ${BNtoNum(param1)}` ; break;
-      case 5: data = `Collateral: ${BNtoNum(param1)}` ; break;
+      case 0: data = `Amount: ${BNtoNum(param1)}`; break;
+      case 1: data = `Amount: ${BNtoNum(param1)}`; break;
       default: data = "Unknown Log"; break;
     }
     return data;
@@ -143,7 +131,7 @@ const StakeLog = () => {
           <div>{ rowsPerPage*(page)+ index + 1 }</div>,
           <MarketName marketID={log.market.id} />,
           <div>{ getKindName(log.kind) }</div>,
-          <div>{ formatParams(log.kind, log.param1,log.param2) }</div>,
+          <div>{ formatParams(log.kind, log.param1) }</div>,
           <div>{ getStringFromTimestamp(log.created)}</div>,          
         ])}
     />

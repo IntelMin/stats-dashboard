@@ -1,40 +1,35 @@
 import { useEffect, useState } from 'react';
 import memoize from 'memoize-one';
 
-// import { MonlogTrades } from 'model';
-import { useMonlogStakesQuery, MonlogStakesQuery } from '../types';
+import { useStakersQuery, StakersQuery } from '../types';
 
 import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
-  (response?: MonlogStakesQuery): any=>
-    response?.monlogStakes?.map((monlogStake) => ({
-      id: monlogStake.id,
-      created: monlogStake.created,
-      kind: monlogStake.kind,
-      param1: monlogStake.param1,
-      market: monlogStake.market,
+  (response?: StakersQuery): any=>
+    response?.stakers?.map((trader) => ({
+      id: trader.id,
+      market: trader.market
     })) ?? [],
 );
 
 const convert1 = memoize(
-  (response?: MonlogStakesQuery): any=>
+  (response?: StakersQuery): any=>
     response?.markets?.map((market) => ({
       id: market.id
     })) ?? [],
 );
-export const useMonlogStakes = (market, kind, first, sk) => {
+
+export const useStakers = (market, first, sk) => {
   
   const [filter, setFilter] = useState({})
   const { data, loading, startPolling, stopPolling, networkStatus } =
-  useMonlogStakesQuery(filter);
-  console.log("monlogStakesData==>>",data)
+  useStakersQuery(filter);
+  console.log("Stakers==>>",data)
   useEffect(() => {
 
     let _filter = {};
     _filter['filter'] = {};
-    if(kind !== -1)
-      _filter['filter']['kind'] = kind;
       
     if(market !== '-')
       _filter['filter']['market'] = market;
@@ -44,7 +39,7 @@ export const useMonlogStakes = (market, kind, first, sk) => {
     console.log("Query Filter:", _filter);
     setFilter(_filter);
 
-  },[market,kind,first,sk])
+  },[market,first,sk])
 
   useEffect(() => {
     startPolling(10000);
@@ -57,5 +52,5 @@ export const useMonlogStakes = (market, kind, first, sk) => {
     }
   }, [networkStatus]);
 
-  return { monlogStakes: convert(data), markets: convert1(data), loading };
+  return { stakers: convert(data), markets: convert1(data), loading };
 }

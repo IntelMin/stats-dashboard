@@ -6,13 +6,13 @@ import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
   (response?: GeneralInfosQuery): any=>
-    response?.generalInfos?.map((info) => ({
-      totalMarkets: info.totalMarkets,
+    response?.monlogStripsInfos?.map((info) => ({
       totalTraders: info.totalTraders,
       totalStakers: info.totalStakers,
-      totalPositions: info.totalPositions,
+      totalLongs: info.totalLongs,
+      totalShorts: info.totalShorts,
+      totalShortsHistorical: info.totalShortsHistorical,
       totalCollaterals: info.totalCollaterals,
-      riskParams: info.riskParams,
     })) ?? [],
 );
 
@@ -20,7 +20,7 @@ export const useGeneralInfo = () => {
   
   const { data, loading, startPolling, stopPolling, networkStatus } =
   useGeneralInfosQuery();
-  console.log("monlogStakesData==>>",data)
+  console.log("monlogStripsInfos==>>",data)
 
   useEffect(() => {
     startPolling(10000);
@@ -33,5 +33,5 @@ export const useGeneralInfo = () => {
     }
   }, [networkStatus]);
 
-  return { generalInfos: convert(data), loading };
+  return { monlogStripsInfos: convert(data), loading };
 }

@@ -24,7 +24,7 @@ const useStyles = makeStyles(() =>
   }),
 );  
 
-export const TraderGrid = ({ data, page, rowsPerPage }) => {
+export const StakerGrid = ({ data, page, rowsPerPage }) => {
   console.log(data, page, rowsPerPage)
   const classes = useStyles();
   const [expanded, setExpanded] = useState<string | false>(false);
@@ -43,7 +43,7 @@ export const TraderGrid = ({ data, page, rowsPerPage }) => {
         <span>Market</span>        
       </div>
       <div className={classes.root}>
-        {data.map((trader, index) => {
+        {data.map((staker, index) => {
           return (
           <Accordion className={classes.row} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
             <AccordionSummary
@@ -54,9 +54,8 @@ export const TraderGrid = ({ data, page, rowsPerPage }) => {
             >
               <div className="staker-row">
                 <span>{page * rowsPerPage + index + 1}</span> 
-                <span><Tooltip title={<Typography className={classes.tooltip} >{trader.id}</Typography>} arrow ><div>{getShortAddress(trader.id)}</div></Tooltip></span>
-                <span><Tooltip title={<Typography className={classes.tooltip} >{trader.market.id}</Typography>} arrow ><div>{getShortAddress(trader.market.id)}</div></Tooltip></span>
-
+                <span><Tooltip title={<Typography className={classes.tooltip} >{staker.id}</Typography>} arrow ><div>{getShortAddress(staker.id)}</div></Tooltip></span>
+                <span><Tooltip title={<Typography className={classes.tooltip} >{staker.market.id}</Typography>} arrow ><div>{getShortAddress(staker.market.id)}</div></Tooltip></span>
               </div>
             </AccordionSummary>
             <AccordionDetails>

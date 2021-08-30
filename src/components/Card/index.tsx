@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 const StatisticsCard = ( {market} ) => {
+  console.log("market-->", market)
   const classes = useStyles();
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
@@ -51,13 +52,10 @@ const StatisticsCard = ( {market} ) => {
           <span>Address:</span>
           <span><Tooltip title={<Typography className={classes.tooltip} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
         </div>
-        <div className="flex">
-          <span>Liquidity:</span>
-          <span>{BNtoNum(market.liquidity)}</span>
-        </div>
+        
         <div className="flex">
           <span>Staked Liquidity:</span>
-          <span>{BNtoNum(market.stakedPnl)}</span>
+          <span>{BNtoNum(market.stakedLiquidity)}</span>
         </div>
         <div className="card-footer">
           <Button className={classes.action} onClick={() => setShowDetail(!showDetail)}>
@@ -67,11 +65,7 @@ const StatisticsCard = ( {market} ) => {
         {showDetail && <div>
           <div className="flex">
             <span>Market Price:</span>
-            <span>{BNtoNum(market.price.marketPrice)}</span>
-          </div>
-          <div className="flex">
-            <span>Oracle Price:</span>
-            <span>{BNtoNum(market.price.oraclePrice)}</span>
+            <span>{BNtoNum(market.marketPrice)}</span>
           </div>
           <div className="flex">
             <span>Demand:</span>
@@ -82,20 +76,32 @@ const StatisticsCard = ( {market} ) => {
             <span>{BNtoNum(market.supply)}</span>
           </div>
           <div className="flex">
-            <span>Positions:</span>
-            <span>{0}</span>
+            <span>Total Longs:</span>
+            <span>{market.totalLongs}</span>
           </div>
           <div className="flex">
-            <span>Total Fee:</span>
-            <span>{0}</span>
+            <span>Total Longs:</span>
+            <span>{market.totalLongs}</span>
+          </div>
+          <div className="flex">
+            <span>Total Longs Historical:</span>
+            <span>{market.totalLongsHistorical}</span>
+          </div>
+          <div className="flex">
+            <span>Total Shorts:</span>
+            <span>{market.totalShorts}</span>
+          </div>
+          <div className="flex">
+            <span>Total Shorts Historical:</span>
+            <span>{market.totalShortsHistorical}</span>
           </div>
           <div className="flex">
             <span>Total Traders:</span>
-            <span>{market.traders}</span>
+            <span>{market.totalTraders}</span>
           </div>
           <div className="flex">
             <span>Total Stakers:</span>
-            <span>{market.stakers}</span>
+            <span>{market.totalStakers}</span>
           </div>
         </div>}
       </CardContent>

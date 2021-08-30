@@ -20,7 +20,8 @@ const convert = memoize(
       totalShortsHistorical: market.totalLongsHistorical,
       totalStakers: market.totalStakers,
       totalTraders: market.totalTraders,
-      unrealizedPNL: market.unrealizedPNL
+      unrealizedPNL: market.unrealizedPNL,
+      created: market.created,
     })) ?? [],
 );
 const convert1 = memoize(

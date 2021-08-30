@@ -4,8 +4,16 @@ import StatisticsCard from "components/StatisticsCard"
 import { useGeneralInfo } from 'graphqlAPI';
 
 const GeneralInfo = () => {
-    const { generalInfos } = useGeneralInfo();
-    console.log("generalInfos-->>",generalInfos)
+    const { monlogStripsInfos } = useGeneralInfo();
+    const riskParams = {
+        "fundFeeRatio": "950000000000000000",
+        "insuranceProfitOnPositionClosed": "50000000000000000",
+        "liquidationMarginRatio": "35000000000000000",
+        "liquidatorFeeRatio": "2000000000000000",
+        "marketFeeRatio": "950000000000000000",
+        "minimumPricePossible": "100000000000000"
+      };
+    console.log("monlogStripsInfos-->>",monlogStripsInfos)
     return (
         <>
             <Typography variant="h3" gutterBottom >Statistics</Typography>
@@ -13,29 +21,30 @@ const GeneralInfo = () => {
                 <Grid item xs={12} md={6} lg={8} >
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={3} title="Total Markets" index={0}/>
+                            <StatisticsCard value={monlogStripsInfos[0]?.totalTraders} title="Total Traders" index={1}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={151} title="Total Traders" index={1}/>
+                            <StatisticsCard value={monlogStripsInfos[0]?.totalStakers} title="Total Stakers" index={2}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={3} title="Total Stakers" index={2}/>
+                            <StatisticsCard value={monlogStripsInfos[0]?.totalShorts} title="Total Shorts" index={3}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={3} title="Total Positions" index={3}/>
+                            <StatisticsCard value={monlogStripsInfos[0]?.totalLongs} title="Total Longs" index={3}/>
                         </Grid>
+                    
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={3} title="Total Collaterals" index={4}/>
+                            <StatisticsCard value={monlogStripsInfos[0]?.totalCollaterals} title="Total Collaterals" index={4}/>
                         </Grid>
                     </Grid>                
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
-                <RiskParams />
+                <RiskParams riskParams={riskParams} />
 
                 </Grid>
             </Grid>  
         </>
-          
+               
     );
 }
 

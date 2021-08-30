@@ -3,8 +3,9 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Accordion, AccordionDetails, AccordionSummary, Tooltip, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { getShortAddress } from 'utils/utils';
-import { getStringFromTimestamp, BNtoNum } from '../../utils/utils'
-import { MarketName } from '../../components'
+import { getStringFromTimestamp, BNtoNum } from '../../utils/utils';
+import { MarketName } from '../../components';
+import { config } from 'config';
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -44,8 +45,8 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
         <span>Asset Symbol</span>
         <span>Created At</span>
         <span>Address</span>
-        <span>Liquidity</span>
-        <span>Staked Liquidity</span>
+        <span>Total Longs</span>
+        <span>Total Shorts</span>
         
       </div>
       <div className={classes.root}>
@@ -62,29 +63,31 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
                 <span>{page * rowsPerPage + index + 1}</span>
                 {/* <span>{market.name}</span> */}
                 <span><MarketName marketID={market.id} /></span>
-                <span>{market.assetSymbol}</span>
+                <span>{config.marketsNames[market.id].assetSymbol}</span>
                 <span><Link href="https://www.google.com/" onClick={(e) => e.stopPropagation()} className={classes.link}>{getStringFromTimestamp(market.created)}</Link></span>
                 <span><Tooltip title={<Typography className={classes.tooltip} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
-                <span>{BNtoNum(market.liquidity)}</span>
-                <span>{BNtoNum(market.stakedPnl)}</span>
+                <span>{market.totalLongs}</span>
+                <span>{market.totalShorts}</span>
               </div>
             </AccordionSummary>
             <AccordionDetails>
               <Grid className="sub-row" container spacing={3}>
                 <Grid item xs={6} >
-                  <span>{`Market Price: ${BNtoNum(market.price.marketPrice)}`}</span>
-                  <span>{`Oracle Price: ${BNtoNum(market.price.oraclePrice)}`}</span>
+                  <span>{`Market Price: ${BNtoNum(market.marketPrice)}`}</span>
                   <span>{`Demand: ${BNtoNum(market.demand)}`}</span>
                   <span>{`Supply: ${BNtoNum(market.supply)}`}</span>
-                  <span>{`Positions: ${"0"}`}</span>
+                  <span>{`Total Traders: ${(market.totalTraders)}`}</span>
+                  <span>{`Total Stakers: ${(market.totalStakers)}`}</span>
                   <span className="hidden">{`Created At: ${getStringFromTimestamp(market.created)}`}</span>
-                  <span className="hidden">{`Liquidity: ${BNtoNum(market.liquidity)}`}</span>
-                  <span className="hidden">{`Staked Liquidity: ${BNtoNum(market.stakedPnl)}`}</span>
+                  <span className="hidden">{`Staked Liquidity: ${BNtoNum(market.stakedLiquidity)}`}</span>
                 </Grid>
                 <Grid item xs={6}>
-                  <span>{`Total Fee: ${"0"}`}</span>
-                  <span>{`Total Traders: ${BNtoNum(market.totalTraders)}`}</span>
-                  <span>{`Total Stakers: ${BNtoNum(market.totalStakers)}`}</span>
+                  <span>{`Total Longs: ${(market.totalLongs)}`}</span>
+                  <span>{`Total Longs Historical: ${(market.totalLongsHistorical)}`}</span>
+                  <span>{`Total Shorts: ${(market.totalShorts)}`}</span>
+                  <span>{`Total Shorts Historical: ${(market.totalShortsHistorical)}`}</span>
+                  <span>{`Staked Liquidity: ${BNtoNum(market.stakedLiquidity)}`}</span>
+                  <span>{`Unrealized PNL: ${BNtoNum(market.unrealizedPNL)}`}</span>
                 </Grid>
               </Grid>
             </AccordionDetails>
