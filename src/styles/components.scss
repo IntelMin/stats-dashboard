@@ -24,3 +24,65 @@
 
 
 // SearchBar component
+
+
+//Risk Params component
+.risk-params {
+  &__root {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+  }
+  &__header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  &__header-icon {
+    margin-right: 8px;
+    margin-bottom: 6px;
+    vertical-align: middle;
+  }
+  &__card-body {
+    &>span{
+      font-size: 20px;
+      color: #e0e0e0;
+    }
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+//Statistics Card component
+.statistics-card {
+  &__root {
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white;
+    padding: 24px;
+  }
+  &__number {
+    font-size: 44px;
+    color: white;
+  }
+  &__title {
+    font-size: 22px !important;
+    color: white;
+  }
+  &__icon {
+    font-size: 75px !important;
+  }
+  &__opened {
+    margin-left: 5px;
+    font-size: 18px;
+  }
+}
+
+//Module Card component
+.module-card {
+  &__root {
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white;
+  }
+  &__tooltip {
+    font-size: 12pt !important;
+  }
+}

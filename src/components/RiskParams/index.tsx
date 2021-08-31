@@ -1,50 +1,35 @@
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { CardHeader, Card, CardContent } from '@material-ui/core';
-import { BNtoNum } from '../../utils/utils'
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: 'white'
-  },
-  number: {
-    fontSize: 44,
-  },
-  body: {
-    fontSize: 20,
-    color: '#e0e0e0'
-  },
-  header: {
-    borderBottom: '1px solid rgba(255, 255, 255, 0.3)',
-  }
-});
+import { block, BNtoNum } from '../../utils/utils'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
+const b = block("risk-params");
 const RiskParams = ( riskParams :any) => {
-  const classes = useStyles();
   console.log("riskParams--->>",riskParams)
   return (
-    <Card className={classes.root}>
+    <Card className={b('root')}>
       <CardHeader
-        title="Risk Params"
-        className={classes.header}
+        title={<div><ErrorOutlineIcon className={b('header-icon')} />Risk Params</div>}
+        className={b('header')}
       />
       <CardContent>
-        <Typography className={classes.body} >
-          <span> {"Fund Fee Ratio: "} </span> {BNtoNum(riskParams.riskParams.fundFeeRatio)}
+        <Typography className={b('card-body')} >
+          <span> {"Fund Fee Ratio: "} </span><span>{BNtoNum(riskParams.riskParams.fundFeeRatio)}</span>
         </Typography>
-        <Typography className={classes.body} >
-          <span> {"Insurance Profit On Position Closed: "} </span> {BNtoNum(riskParams.riskParams.insuranceProfitOnPositionClosed)}
+        <Typography className={b('card-body')} >
+          <span> {"Insurance Profit On Position Closed: "} </span> <span>{BNtoNum(riskParams.riskParams.insuranceProfitOnPositionClosed)}</span>
         </Typography>
-        <Typography className={classes.body} >
-          <span> {"Liquidation Margin Ratio: "} </span> { BNtoNum(riskParams.riskParams.liquidationMarginRatio) }
+        <Typography className={b('card-body')} >
+          <span> {"Liquidation Margin Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.liquidationMarginRatio) }</span>
         </Typography>
-        <Typography className={classes.body} >
-          <span> {"Liquidator Fee Ratio: "} </span> { BNtoNum(riskParams.riskParams.liquidatorFeeRatio) }
+        <Typography className={b('card-body')} >
+          <span> {"Liquidator Fee Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.liquidatorFeeRatio) }</span>
         </Typography>
-        <Typography className={classes.body} >
-          <span> {"Market Fee Ratio: "} </span> { BNtoNum(riskParams.riskParams.marketFeeRatio)}
+        <Typography className={b('card-body')} >
+          <span> {"Market Fee Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.marketFeeRatio)}</span>
         </Typography>
-        <Typography className={classes.body} >
-          <span> {"Minimum Price Possible: "} </span> { BNtoNum(riskParams.riskParams.minimumPricePossible) }
+        <Typography className={b('card-body')} >
+          <span> {"Minimum Price Possible: "} </span> <span>{ BNtoNum(riskParams.riskParams.minimumPricePossible) }</span>
         </Typography>
       </CardContent>
     </Card>

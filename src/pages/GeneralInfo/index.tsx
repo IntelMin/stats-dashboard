@@ -21,26 +21,24 @@ const GeneralInfo = () => {
                 <Grid item xs={12} md={6} lg={8} >
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={monlogStripsInfos[0]?.totalTraders} title="Total Traders" index={1}/>
+                            <StatisticsCard subValue="null" value={monlogStripsInfos[0]?.totalTraders} title="Total Traders" index={1}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={monlogStripsInfos[0]?.totalStakers} title="Total Stakers" index={2}/>
+                            <StatisticsCard subValue="null" value={monlogStripsInfos[0]?.totalStakers} title="Total Stakers" index={2}/>
+                        </Grid>                    
+                        <Grid item xs={12} md={12} lg={6} xl={4}>
+                            <StatisticsCard subValue="null" value={monlogStripsInfos[0]?.totalCollaterals} title="Total Collaterals" index={4}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={monlogStripsInfos[0]?.totalShorts} title="Total Shorts" index={3}/>
+                            <StatisticsCard subValue={monlogStripsInfos[0]?.totalShorts || 0} value={monlogStripsInfos[0]?.totalShortsHistorical } title="Total Shorts" index={3}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={monlogStripsInfos[0]?.totalLongs} title="Total Longs" index={3}/>
-                        </Grid>
-                    
-                        <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard value={monlogStripsInfos[0]?.totalCollaterals} title="Total Collaterals" index={4}/>
+                            <StatisticsCard subValue={ monlogStripsInfos[0]?.totalLongs || 0} value={monlogStripsInfos[0]?.totalLongsHistorical} title="Total Longs" index={3}/>
                         </Grid>
                     </Grid>                
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
-                <RiskParams riskParams={riskParams} />
-
+                    <RiskParams riskParams={riskParams} />
                 </Grid>
             </Grid>  
         </>

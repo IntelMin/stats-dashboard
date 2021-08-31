@@ -12,8 +12,8 @@ const Markets = () => {
     return (
         <div >
             <div className="market_viewToolbar">
-                <IconButton onClick={toggleView}><ViewModuleIcon  className={viewModule ? "marked_view_selected" : ""}/></IconButton>
-                <IconButton onClick={toggleView}><ViewListIcon className={!viewModule ? "marked_view_selected" : ""}/></IconButton>
+                <IconButton onClick={toggleView}><ViewModuleIcon  className={viewModule ? "market_view_selected" : ""}/></IconButton>
+                <IconButton onClick={toggleView}><ViewListIcon className={!viewModule ? "market_view_selected" : ""}/></IconButton>
             </div>
             <div className="market_content">
                 {viewModule ? (<ModuleView/>):(<ListView/>)

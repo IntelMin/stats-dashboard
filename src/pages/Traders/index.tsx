@@ -1,5 +1,4 @@
 import { Typography } from "@material-ui/core";
-// import { useParams } from "react-router";
 import ListView from '../../features/traders/ListView'
 const Traders = () => {
     return (

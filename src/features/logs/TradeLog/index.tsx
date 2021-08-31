@@ -25,12 +25,10 @@ const TradeLog = () => {
   }, [markets])
 
   const handleChangeMarket = (event) => {
-    console.log("Market selected:", event.target.value)
     setMarket(event.target.value);
   }
 
   const handleChangeKind = (event) => {
-    console.log("Kind selected:", event.target.value)
     setKind(Number(event.target.value));
   }
 

@@ -41,7 +41,7 @@ function App() {
           )
         })
       }
-      <Redirect exact from="/" to="/eventslog" />
+      <Redirect exact from="/" to="/generalinfo" />
       <Route component={NotFound} />
     </Switch>
   </Layout>

@@ -27,7 +27,6 @@ const ModuleView = () => {
     console.log("data-->>", marketsDisplay)
   }
 
-
   return (
     <>
       <InfiniteScroll
@@ -42,6 +41,7 @@ const ModuleView = () => {
           return <Card market={market} key={index} />
         })}
       </InfiniteScroll>
+      {marketsDisplay.length === 0 ? <div className="lazy-loading">There is nothing to display</div> : ""}
     </>
   );
 };

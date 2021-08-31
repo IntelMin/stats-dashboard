@@ -3,16 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Button, Tooltip, Typography } from '@material-ui/core';
-import { getShortAddress } from 'utils/utils';
+import { block, getShortAddress } from 'utils/utils';
 import { getStringFromTimestamp, BNtoNum } from '../../utils/utils';
 import { MarketName } from '../../components';
 import { config } from 'config';
+const b = block('module-card');
 const useStyles = makeStyles({
-  root: {
-    maxWidth: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: 'white',
-  },
   tooltip: {
     fontSize: '12pt',
   },
@@ -28,13 +24,13 @@ const useStyles = makeStyles({
   }
 });
 
-const StatisticsCard = ( {market} ) => {
+const ModuleCard = ( {market} ) => {
   console.log("market-->", market)
   const classes = useStyles();
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   return (
-    <Card className={classes.root}>
+    <Card className={b('root')}>
       <CardContent className={classes.content}>
         <div className="flex">
           {/* <span>Name:</span> */}
@@ -108,4 +104,4 @@ const StatisticsCard = ( {market} ) => {
     </Card>
   );
 }
-export default StatisticsCard;
+export default ModuleCard;

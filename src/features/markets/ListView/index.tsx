@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback} from 'react';
 import { useMarkets } from 'graphqlAPI';
 import TablePagination from '@material-ui/core/TablePagination';
 import { MarketGrid } from 'components/MarketGrid';
-// import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
-// import { config } from '../../../config';
 
 const ListView = () => {
   const [page, setPage] = useState<number>(0);

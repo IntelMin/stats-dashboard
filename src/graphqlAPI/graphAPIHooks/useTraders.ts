@@ -27,10 +27,8 @@ export const useTraders = (market, first, sk) => {
   useTradersQuery(filter);
   console.log("Traders==>>",data)
   useEffect(() => {
-
     let _filter = {};
-    _filter['filter'] = {};
-      
+    _filter['filter'] = {};     
     if(market !== '-')
       _filter['filter']['market'] = market;
 

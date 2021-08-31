@@ -1,4 +1,4 @@
-.marked_view_selected{
+.market_view_selected{
     color: aqua!important;
 }
 
@@ -10,6 +10,7 @@
     justify-content: center;
     margin-top: 24px;
     align-items: flex-start;
+    overflow: auto;
 }
 
 .card {
