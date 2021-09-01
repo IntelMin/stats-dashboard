@@ -30,7 +30,7 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
       <div className={b('root')}>
         {data.map((market, index) => {
           return (
-          <Accordion className={b('row')} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
+          <Accordion key={index} className={b('row')} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className={b('icon')} />}
               aria-controls="panel1bh-content"
@@ -49,23 +49,23 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
               </div>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid className="sub-row" container spacing={3}>
-                <Grid item xs={6} >
-                  <span>{`Market Price: ${BNtoNum(market.marketPrice)}`}</span>
-                  <span>{`Demand: ${BNtoNum(market.demand)}`}</span>
-                  <span>{`Supply: ${BNtoNum(market.supply)}`}</span>
-                  <span>{`Total Traders: ${(market.totalTraders)}`}</span>
-                  <span>{`Total Stakers: ${(market.totalStakers)}`}</span>
-                  <span className="hidden">{`Created At: ${getStringFromTimestamp(market.created)}`}</span>
-                  <span className="hidden">{`Staked Liquidity: ${BNtoNum(market.stakedLiquidity)}`}</span>
+              <Grid className="sub-row" container spacing={10}>
+                <Grid item xs={12} md={6} >
+                  <div className="flex"><span>Market Price:</span><span>{BNtoNum(market.marketPrice)}</span></div>
+                  <div className="flex"><span>Demand:</span><span>{BNtoNum(market.demand)}</span></div>
+                  <div className="flex"><span>Supply:</span><span>{BNtoNum(market.supply)}</span></div>
+                  <div className="flex"><span>Total Traders:</span><span>{(market.totalTraders)}</span></div>
+                  <div className="flex"><span>Total Stakers:</span><span>{(market.totalStakers)}</span></div>
+                  <div className="flex hidden"><span>Created At:</span><span>{getStringFromTimestamp(market.created)}</span></div>
+                  <div className="flex hidden"><span>Staked Liquidity:</span><span>{BNtoNum(market.stakedLiquidity)}</span></div>
                 </Grid>
-                <Grid item xs={6}>
-                  <span>{`Total Longs: ${(market.totalLongs)}`}</span>
-                  <span>{`Total Longs Historical: ${(market.totalLongsHistorical)}`}</span>
-                  <span>{`Total Shorts: ${(market.totalShorts)}`}</span>
-                  <span>{`Total Shorts Historical: ${(market.totalShortsHistorical)}`}</span>
-                  <span>{`Staked Liquidity: ${BNtoNum(market.stakedLiquidity)}`}</span>
-                  <span>{`Unrealized PNL: ${BNtoNum(market.unrealizedPNL)}`}</span>
+                <Grid item xs={12} md={6}>
+                  <div className="flex"><span>Total Longs:</span><span>{(market.totalLongs)}</span></div>
+                  <div className="flex"><span>Total Longs Historical: </span><span>{(market.totalLongsHistorical)}</span></div>
+                  <div className="flex"><span>Total Shorts:</span><span>{(market.totalShorts)}</span></div>
+                  <div className="flex"><span>Total Shorts Historical:</span><span>{(market.totalShortsHistorical)}</span></div>
+                  <div className="flex"><span>Staked Liquidity:</span><span>{BNtoNum(market.stakedLiquidity)}</span></div>
+                  <div className="flex"><span>Unrealized PNL:</span><span>{BNtoNum(market.unrealizedPNL)}</span></div>
                 </Grid>
               </Grid>
             </AccordionDetails>

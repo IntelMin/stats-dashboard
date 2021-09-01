@@ -19,7 +19,9 @@
     }
   }
 
-
+.link {
+  color: #d8cfcf;
+}
 // DataGrid component
 
 
@@ -80,7 +82,7 @@
   &__root {
     max-width: 100%;
     background-color: rgba(255, 255, 255, 0.1) !important;
-    color: white;
+    color: white !important;
   }
   &__tooltip {
     font-size: 12pt !important;
@@ -92,8 +94,8 @@
     color: white;
   }
   &__action {
-    color: #eed35d;
-    text-transform: capitalize;
+    color: #eed35d !important;
+    text-transform: capitalize !important;
   }
 }
 
@@ -103,14 +105,14 @@
     width: 100%;
   }
   &__row {
-    background-color: #1e4061;
-    color: white;
+    background-color: #1e4061 !important;
+    color: white !important;
   }
   &__icon {
-    fill: white;
+    fill: white !important;
   }
   &__link {
-    color: white;
+    color: white !important;
   }
   &__tooltip {
     font-size: 12pt;

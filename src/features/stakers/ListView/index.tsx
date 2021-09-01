@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback} from 'react';
-import { useStakers } from 'graphqlAPI';
+import { useStakers, useMarketStakes } from 'graphqlAPI';
 import SearchIcon from '@material-ui/icons/Search';
 import TablePagination from '@material-ui/core/TablePagination';
 import { StakerGrid } from 'components/StakerGrid';
@@ -18,6 +18,7 @@ const ListView = () => {
   const [count, setCount ] = useState(1000);
   const [market, setMarket] = useState<string>('-');
   const {stakers, markets } = useStakers(market,rowsPerPage, page*rowsPerPage);
+  const { marketStakes } = useMarketStakes();
   const handleChangeMarket = (event) => {
     console.log("Market selected:", event.target.value)
     setMarket(event.target.value);
@@ -75,7 +76,7 @@ const ListView = () => {
             }
         </Select>
       </FormControl>
-      <StakerGrid data={stakers} page={page} rowsPerPage={rowsPerPage} />
+      <StakerGrid data={stakers} page={page} rowsPerPage={rowsPerPage} marketStakes = {marketStakes} />
       <TablePagination
         component="div"
         count={count}

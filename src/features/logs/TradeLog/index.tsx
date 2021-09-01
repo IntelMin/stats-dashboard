@@ -6,8 +6,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import { DataGrid, MarketName } from '../../../components'
-import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
+import { getStringFromTimestamp, BNtoNum, getShortAddress } from '../../../utils/utils'
 import { config } from '../../../config';
+import { Tooltip, Typography } from '@material-ui/core';
 
 const TradeLog = () => {
   const [page, setPage] = useState<number>(0);
@@ -21,6 +22,7 @@ const TradeLog = () => {
     setCount(1000)
     if (markets) {
       console.log("markets->>",markets)
+      setCount(markets.length)
     }
   }, [markets])
 
@@ -133,7 +135,8 @@ const TradeLog = () => {
             { label: "Market"},
             { label: 'Kind' },
             { label: 'Data' },
-            { label: 'Time' }
+            { label: 'Time' },
+            { label: 'Account'}
           ]
         ]}
         data={monlogTrades?.map((log, index) =>
@@ -142,7 +145,8 @@ const TradeLog = () => {
           <MarketName marketID={log.market.id} />,
           <div>{ getKindName(log.kind) }</div>,
           <div>{ formatParams(log.kind, log.param1,log.param2) }</div>,
-          <div>{ getStringFromTimestamp(log.created)}</div>,          
+          <div>{ getStringFromTimestamp(log.created)}</div>,
+          <div><Tooltip title={<Typography >{log.account.id}</Typography>} arrow ><div>{getShortAddress(log.account.id)}</div></Tooltip></div>    
         ])}
     />
     <TablePagination

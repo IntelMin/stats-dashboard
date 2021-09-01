@@ -4,7 +4,7 @@ import { block, BNtoNum } from '../../utils/utils'
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const b = block("risk-params");
-const RiskParams = ( riskParams :any) => {
+const RiskParams = ( {riskParams }) => {
   console.log("riskParams--->>",riskParams)
   return (
     <Card className={b('root')}>
@@ -14,22 +14,22 @@ const RiskParams = ( riskParams :any) => {
       />
       <CardContent>
         <Typography className={b('card-body')} >
-          <span> {"Fund Fee Ratio: "} </span><span>{BNtoNum(riskParams.riskParams.fundFeeRatio)}</span>
+          <span> {"Fund Fee Ratio: "} </span><span>{BNtoNum(riskParams?.fundFeeRatio)}</span>
         </Typography>
         <Typography className={b('card-body')} >
-          <span> {"Insurance Profit On Position Closed: "} </span> <span>{BNtoNum(riskParams.riskParams.insuranceProfitOnPositionClosed)}</span>
+          <span> {"Insurance Profit On Position Closed: "} </span> <span>{BNtoNum(riskParams?.insuranceProfitOnPositionClosed)}</span>
         </Typography>
         <Typography className={b('card-body')} >
-          <span> {"Liquidation Margin Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.liquidationMarginRatio) }</span>
+          <span> {"Liquidation Margin Ratio: "} </span> <span>{ BNtoNum(riskParams?.liquidationMarginRatio) }</span>
         </Typography>
         <Typography className={b('card-body')} >
-          <span> {"Liquidator Fee Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.liquidatorFeeRatio) }</span>
+          <span> {"Liquidator Fee Ratio: "} </span> <span>{ BNtoNum(riskParams?.liquidatorFeeRatio) }</span>
         </Typography>
         <Typography className={b('card-body')} >
-          <span> {"Market Fee Ratio: "} </span> <span>{ BNtoNum(riskParams.riskParams.marketFeeRatio)}</span>
+          <span> {"Market Fee Ratio: "} </span> <span>{ BNtoNum(riskParams?.marketFeeRatio)}</span>
         </Typography>
         <Typography className={b('card-body')} >
-          <span> {"Minimum Price Possible: "} </span> <span>{ BNtoNum(riskParams.riskParams.minimumPricePossible) }</span>
+          <span> {"Minimum Price Possible: "} </span> <span>{ BNtoNum(riskParams?.minimumPricePossible) }</span>
         </Typography>
       </CardContent>
     </Card>

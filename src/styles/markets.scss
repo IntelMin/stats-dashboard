@@ -52,7 +52,7 @@
     width: 100%;
 }
 
-.market-header, .staker-header {
+.market-header, .staker-header, .trader-header {
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.14);
     background-color: #1e4061;
     width: 100%;
@@ -63,7 +63,7 @@
     &>span{
         background-color: rgba(255,255,255,0.1);
         margin: 1px;
-        padding: 5px 10px;
+        padding: 5px 3vh;
         overflow-wrap: anywhere;
     }
 }
@@ -74,25 +74,26 @@
     padding-left: 5%;
 }
 .sub-row span {
-    width: 100%;
+    // width: 100%;
     display: inline-block;
     padding: 4px 8px;
 }
-.row, .staker-row {
+.row, .staker-row, .trader-row {
     width: 100%;
     display: flex;
     &>span{
         overflow-wrap: anywhere;
         margin: 1px;
-        padding: 5px 10px;
+        padding: 5px 3vh;
         transition: .3s background-color;
         line-height: 48px;
         display: table-cell;
         vertical-align: middle;
+        // letter-spacing: 1px;
         // line-height: normal;;
     }
 }
-.row:hover span {
+.row:hover>span, .staker-row:hover>span, .trader-row:hover>span {
     background-color:rgba(255, 255, 255, 0.05);
 }
 .market-header, .row {
@@ -118,23 +119,34 @@
         width: 10%;
     }
 }
-.staker-header, .staker-row {
-    span:nth-child(1) {
-        width: 10%;
-    }
-    span:nth-child(2) {
-        width: 45%;
-    }
-    span:nth-child(3) {
-        width: 45%;
+td:first-child {
+    width: 40px;
+}
+.trader-header, .staker-header, .trader-row, .staker-row {
+    & > span {
+        &:nth-child(1) {
+            min-width: 60px;
+            width: 60px;
+        }
+        &:nth-child(2) {
+            min-width: 20%;
+            width: 20%;
+        }
+        &:nth-child(3) {
+            min-width: 20%;
+            width: 20%;
+        }
+        &:nth-child(4) {
+            flex-grow: 1;
+        }
     }
 }
-span.hidden {
+div.hidden {
     display: none;
 }
 @media screen and (max-width: 1200px) {
-    span.hidden {
-        display: block;
+    div.hidden {
+        display: flex;
     }
     .market-header, .row {
         span:nth-child(1) {

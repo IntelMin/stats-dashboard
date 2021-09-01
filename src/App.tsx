@@ -3,9 +3,10 @@ import './styles/index.scss';
 import {
   faTachometerAlt,
   faInfoCircle,
-  faTrademark,
+  faGavel,
   faExchangeAlt,
-  faGifts
+  faGifts,
+  faHandHoldingUsd
 } from '@fortawesome/free-solid-svg-icons';
 import { Redirect, Route, Switch } from 'react-router';
 import NotFound from 'pages/NotFound';
@@ -16,12 +17,14 @@ import Stakers from './pages/Stakers';
 import GeneralInfo from './pages/GeneralInfo';
 import DetailView from './features/markets/DetailView'
 import { Layout } from 'pages/Layout';
+import InsuranceFunds from 'pages/InsuranceFunds';
 
 const navs = [
   { text: "General Info", icon: faInfoCircle, to: '/generalinfo', component: GeneralInfo },
   { text: 'Markets', icon: faGifts, to: '/markets',component: Markets},
   { text: 'Traders', icon: faExchangeAlt, to: '/traders',component: Traders },
-  { text: 'Stakers', icon: faTrademark, to: '/stakers',component: Stakers},
+  { text: 'Stakers', icon: faGavel, to: '/stakers',component: Stakers},
+  { text: 'Insurance Funds', icon: faHandHoldingUsd, to: '/insurancefunds', component: InsuranceFunds },
   { text: 'Events Monitor', icon: faTachometerAlt, to: `/eventslog`, component: EventsMonitor },
 ]
 

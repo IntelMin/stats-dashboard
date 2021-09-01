@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback} from 'react';
-import { useTraders } from 'graphqlAPI';
+import { useTraders, usePositions } from 'graphqlAPI';
 // import Select from '@material-ui/core/Select';
 // import InputLabel from '@material-ui/core/InputLabel';
 // import FormControl from '@material-ui/core/FormControl';
@@ -21,6 +21,7 @@ const ListView = () => {
   const [count, setCount ] = useState(1000);
   const [market, setMarket] = useState<string>('-');
   const {traders, markets } = useTraders(market,rowsPerPage, page*rowsPerPage);
+  const { positions } =  usePositions();
   const handleChangeMarket = (event) => {
     console.log("Market selected:", event.target.value)
     setMarket(event.target.value);
@@ -36,7 +37,10 @@ const ListView = () => {
     if (markets) {
       console.log("markets->>",markets)
     }
-  }, [markets])
+    if(positions) {
+      console.log("positions-->>", positions)
+    }
+  }, [markets, positions])
 
   const handleChangePage = useCallback((event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     if(event) {
@@ -55,6 +59,7 @@ const ListView = () => {
     if(marketId.hasOwnProperty('id'))
       setMarket(getMarketName(marketId.id))
   }, [marketId])
+  
   return (
     <>
       <SearchIcon className='logs-search-icon'/>
@@ -78,7 +83,7 @@ const ListView = () => {
             }
         </Select>
       </FormControl>
-      <TraderGrid data={traders} page={page} rowsPerPage={rowsPerPage} />
+      <TraderGrid data={traders} page={page} rowsPerPage={rowsPerPage} positions={positions} />
       <TablePagination
         component="div"
         count={count}

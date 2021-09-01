@@ -28,6 +28,9 @@ export const MonlogTradesDocument = (op) => {
         kind
         param1
         param2
+        account{
+          id
+        }
         market{
           id
         }
@@ -68,7 +71,9 @@ export type MonlogTrade = {
   market:{
     id:Scalars['ID']
   }
-
+  account: {
+    id: Scalars['ID']
+  }
 };
 
 export type MonlogMarkets = {
@@ -95,7 +100,7 @@ export type MonlogTradesQuery = (
   { __typename?: 'Query' }
   & { monlogTrades: Array<(
         { __typename?: 'MonlogTrade' }
-        & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market'>
+        & Pick<MonlogTrade, 'id' | 'created' | 'kind' | 'param1' | 'param2' |'market' | 'account'>
       )> 
       markets: Array<(
       { __typename?: 'Market' }
@@ -236,7 +241,12 @@ export type GeneralInfo = {
   totalShortsHistorical: Scalars['BigDecimal'];
   totalCollaterals: Scalars['BigDecimal'];
   riskParams: {
-
+    insuranceProfitOnPositionClosed: Scalars['BigDecimal'];
+    minimumPricePossible: Scalars['BigDecimal'];
+    liquidationMarginRatio: Scalars['BigDecimal'];
+    liquidatorFeeRatio: Scalars['BigDecimal'];
+    fundFeeRatio: Scalars['BigDecimal'];
+    marketFeeRatio: Scalars['BigDecimal'];
   }
 };
 export const GeneralInfosDocument = () => {
@@ -251,6 +261,14 @@ export const GeneralInfosDocument = () => {
         totalShorts
         totalShortsHistorical
         totalCollaterals
+        riskParams {
+          insuranceProfitOnPositionClosed
+          minimumPricePossible
+          liquidationMarginRatio
+          liquidatorFeeRatio
+          fundFeeRatio
+          marketFeeRatio
+        }
       }
     }
   `;
@@ -269,7 +287,7 @@ export type GeneralInfosQuery = (
   { __typename?: 'Query' }
   & { monlogStripsInfos: Array<(
         { __typename?: 'GeneralInfo' }
-        & Pick<GeneralInfo, 'id' | 'totalTraders' | 'totalStakers' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalCollaterals' >
+        & Pick<GeneralInfo, 'id' | 'totalTraders' | 'totalStakers' | 'totalLongs' | 'totalLongsHistorical' | 'totalShorts' | 'totalShortsHistorical' | 'totalCollaterals' |'riskParams'>
       )> 
     }
 );
@@ -364,5 +382,210 @@ export type StakersQuery = (
     }
 );
 
+export type InsuranceFunds = {
+  __typename?: 'insuranceFunds';
+  id: Scalars['ID'];
+  liquidity: Scalars['BigDecimal'];
+  stakedPnl: Scalars['BigDecimal'];
+  totalStakers: Scalars['BigDecimal'];
+};
+export const InsuranceFundsDocument = () => {
+  const query = `
+    query insuranceFunds {
+      insuranceFunds {
+        id
+        liquidity
+        stakedPnl
+        totalStakers
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type InsuranceFundsQueryVariables = any;
+export const useInsuranceFundsQuery = (baseOptions?: Apollo.QueryHookOptions<InsuranceFundsQuery, InsuranceFundsQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<InsuranceFundsQuery, InsuranceFundsQueryVariables>(InsuranceFundsDocument(), options);
+}
+export type InsuranceFundsQuery = (
+  { __typename?: 'Query' }
+  & { insuranceFunds: Array<(
+        { __typename?: 'InsuranceFunds' }
+        & Pick<InsuranceFunds, 'id' | 'liquidity' | 'stakedPnl' | 'totalStakers' >
+      )> 
+    }
+);
+
+export type InsuranceStakers = {
+  __typename?: 'insuranceStakers';
+  id: Scalars['ID'];
+  amount: Scalars['BigDecimal'];
+};
+export const InsuranceStakersDocument = (op) => {
+  const query = `
+    query insuranceStakers {
+      insuranceStakers(first:${op.first},skip:${op.sk}){
+        id
+        amount
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type InsuranceStakersQueryVariables = any;
+export const useInsuranceStakersQuery = (baseOptions?: Apollo.QueryHookOptions<InsuranceStakersQuery, InsuranceStakersQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<InsuranceStakersQuery, InsuranceStakersQueryVariables>(InsuranceStakersDocument(options), options);
+}
+export type InsuranceStakersQuery = (
+  { __typename?: 'Query' }
+  & { insuranceStakers: Array<(
+        { __typename?: 'InsuranceStakers' }
+        & Pick<InsuranceStakers, 'id' | 'amount'>
+      )> 
+    }
+);
+
+export type InsuranceMonlogStake = {
+  __typename?: 'insuranceMonlogStakes';
+  id: Scalars['ID'];
+  kind: Scalars['Int'];
+  param1: Scalars['BigDecimal'];
+};
+export const InsuranceMonlogStakesDocument = (op) => {
+  const query = `
+    query insuranceMonlogStakes {
+      insuranceMonlogStakes(first:${op.first},skip:${op.sk}){
+        id
+        kind
+        param1
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type InsuranceMonlogStakesQueryVariables = any;
+export const useInsuranceMonlogStakesQuery = (baseOptions?: Apollo.QueryHookOptions<InsuranceMonlogStakesQuery, InsuranceMonlogStakesQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<InsuranceMonlogStakesQuery, InsuranceMonlogStakesQueryVariables>(InsuranceMonlogStakesDocument(options), options);
+}
+export type InsuranceMonlogStakesQuery = (
+  { __typename?: 'Query' }
+  & { insuranceMonlogStakes: Array<(
+        { __typename?: 'InsuranceMonlogStakes' }
+        & Pick<InsuranceMonlogStake, 'id' | 'kind' | 'param1'>
+      )> 
+    }
+);
+
+export type Position = {
+  __typename?: 'positions';
+  id: Scalars['ID'];
+  account: {
+    id: Scalars['ID'];
+  }
+  isLong: Scalars['Boolean'];
+  isActive: Scalars['Boolean'];
+  isLiquidated: Scalars['Boolean'];
+  collateral: Scalars['BigDecimal'];
+  leverage: Scalars['BigDecimal'];
+};
+export const PositionsDocument = () => {
+  const query = `
+    query positions {
+      positions {
+        id
+        account {
+          id
+        }
+        isLong
+        isActive
+        isLiquidated
+        collateral
+        leverage
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type PositionsQueryVariables = any;
+export const usePositionsQuery = (baseOptions?: Apollo.QueryHookOptions<PositionsQuery, PositionsQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<PositionsQuery, PositionsQueryVariables>(PositionsDocument(), options);
+}
+export type PositionsQuery = (
+  { __typename?: 'Query' }
+  & { positions: Array<(
+        { __typename?: 'positions' }
+        & Pick<Position, 'id' | 'account' | 'isLong' | 'isActive' | 'isLiquidated' | 'collateral' | 'leverage' >
+      )> 
+    }
+);
 
 
+export type MarketStake = {
+  __typename?: 'marketStakes';
+  id: Scalars['ID'];
+  account: {
+    id: Scalars['ID'];
+  }
+  market:  {
+    id: Scalars['ID'];
+  }
+  slpTotal: Scalars['BigDecimal'];
+  collateralTotal: Scalars['BigDecimal'];
+  initialStakedPnl: Scalars['BigDecimal'];
+};
+export const MarketStakesDocument = () => {
+  const query = `
+    query marketStakes {
+      marketStakes {
+        id
+        account {
+          id
+        }
+        market {
+          id
+        }
+        slpTotal
+        collateralTotal
+        initialStakedPnl
+
+      }
+    }
+  `;
+  console.log("Query: ", query);
+  return gql(query);
+} 
+
+export type MarketStakesQueryVariables = any;
+export const useMarketStakesQuery = (baseOptions?: Apollo.QueryHookOptions<MarketStakesQuery, MarketStakesQueryVariables>) => {
+  const options = {...defaultOptions, ...baseOptions}
+  
+  console.log("options-->",options)
+  return Apollo.useQuery<MarketStakesQuery, MarketStakesQueryVariables>(MarketStakesDocument(), options);
+}
+export type MarketStakesQuery = (
+  { __typename?: 'Query' }
+  & { marketStakes: Array<(
+        { __typename?: 'marketStakes' }
+        & Pick<MarketStake, 'id' | 'account' | 'market' | 'slpTotal' | 'collateralTotal' | 'initialStakedPnl' >
+      )> 
+    }
+);

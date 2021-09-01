@@ -1,6 +1,6 @@
 @import 'styles/mixins/common';
 
-$padding-h: 5vh;
+$padding-h: 3vh;
 
 .table-wrapper {
   height : 60vh;
@@ -8,6 +8,10 @@ $padding-h: 5vh;
   background-color: #1e4061;
   overflow-y: auto;
   margin-top: 24px;
+}
+.chip-wrapper>div {
+  margin-left: 4px;
+  margin-right: 8px;
 }
 .data-grid {
   width: 100%;
@@ -29,15 +33,12 @@ $padding-h: 5vh;
 
   &__row {
     transition: .3s background-color;
-
+    
     &:hover {
       background-color: rgba(255, 255, 255, .05);
     }
   }
-
-  &__cell {
-  }
-
+  
   &__cell-inner {
     padding: 7px $padding-h;
     display: flex;

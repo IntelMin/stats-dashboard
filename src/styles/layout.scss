@@ -5,10 +5,17 @@
 
 .header-content {
     padding: 0 40px;
+    padding-right: 280px;
+    margin: auto;
 }
-
+@media only screen and (max-width: 768px) {
+  .header-content {
+    display: none;
+  }
+}
 .title {
     color: rgb(238, 211, 93);
+    font-weight: bold !important;
 }
 
 .layout {
@@ -131,7 +138,7 @@ $social-colors: (
     grid-auto-flow: column;
     padding: 0 15px;
     justify-content: space-between;
-    gap: 10px;
+    gap: 15px;
   }
   .toggle &__social-title, .toggle &__social-links {
     display: none;
@@ -156,4 +163,6 @@ $social-colors: (
   }
 }
 
-
+.mt-2 {
+  margin-top: 2rem !important;
+}

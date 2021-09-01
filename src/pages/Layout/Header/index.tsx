@@ -5,6 +5,7 @@ import style from './style.module.scss';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
+import { Typography } from '@material-ui/core';
 interface Props {
   className?: string;
   menuOpen?: boolean;
@@ -23,7 +24,7 @@ const Header = ({ className, menuOpen, setMenuOpen }: Props) => {
         </NavLink>
       </div>
       <div className="header-content">
-        <h1 className="title">Admin Panel</h1>
+        <Typography className="title" variant="h4" >Admin Panel</Typography>
       </div>
     </div>
   );

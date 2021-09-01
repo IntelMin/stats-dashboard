@@ -1,27 +1,24 @@
 import { useEffect } from 'react';
 import memoize from 'memoize-one';
-import { useGeneralInfosQuery, GeneralInfosQuery } from '../types';
+import { useInsuranceFundsQuery, InsuranceFundsQuery } from '../types';
 
 import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
-  (response?: GeneralInfosQuery): any=>
-    response?.monlogStripsInfos?.map((info) => ({
-      totalTraders: info.totalTraders,
+  (response?: InsuranceFundsQuery): any=>
+    response?.insuranceFunds?.map((info) => ({
+      id: info.id,
+      liquidity: info.liquidity,
+      stakedPnl: info.stakedPnl,
       totalStakers: info.totalStakers,
-      totalLongs: info.totalLongs,
-      totalShorts: info.totalShorts,
-      totalShortsHistorical: info.totalShortsHistorical,
-      totalCollaterals: info.totalCollaterals,
-      riskParams: info.riskParams
     })) ?? [],
 );
 
-export const useGeneralInfo = () => {
+export const useInsuranceFunds = () => {
   
   const { data, loading, startPolling, stopPolling, networkStatus } =
-  useGeneralInfosQuery();
-  console.log("monlogStripsInfos==>>",data)
+  useInsuranceFundsQuery();
+  console.log("insurancefunds==>>",data)
 
   useEffect(() => {
     startPolling(10000);
@@ -34,5 +31,5 @@ export const useGeneralInfo = () => {
     }
   }, [networkStatus]);
 
-  return { monlogStripsInfos: convert(data), loading };
+  return { insuranceFunds: convert(data), loading };
 }
