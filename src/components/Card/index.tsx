@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Button, Tooltip, Typography } from '@material-ui/core';
@@ -8,30 +7,14 @@ import { getStringFromTimestamp, BNtoNum } from '../../utils/utils';
 import { MarketName } from '../../components';
 import { config } from 'config';
 const b = block('module-card');
-const useStyles = makeStyles({
-  tooltip: {
-    fontSize: '12pt',
-  },
-  link: {
-    color: 'white',
-  },
-  action: {
-    color: '#eed35d',
-    textTransform: 'capitalize'
-  },
-  content: {
-    paddingBottom: '12px !important'
-  }
-});
 
 const ModuleCard = ( {market} ) => {
   console.log("market-->", market)
-  const classes = useStyles();
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   return (
     <Card className={b('root')}>
-      <CardContent className={classes.content}>
+      <CardContent className={b('content')}>
         <div className="flex">
           {/* <span>Name:</span> */}
           <span><MarketName marketID={market.id} /></span>
@@ -42,11 +25,11 @@ const ModuleCard = ( {market} ) => {
         </div>
         <div className="flex">
           <span>Created At:</span>
-          <span><a href="https://www.google.com/" className={classes.link}>{getStringFromTimestamp(market.created)}</a></span>
+          <span><a href="https://www.google.com/" className={b('link')}>{getStringFromTimestamp(market.created)}</a></span>
         </div>
         <div className="flex">
           <span>Address:</span>
-          <span><Tooltip title={<Typography className={classes.tooltip} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
+          <span><Tooltip title={<Typography className={b('tooltip')} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
         </div>
         
         <div className="flex">
@@ -54,7 +37,7 @@ const ModuleCard = ( {market} ) => {
           <span>{BNtoNum(market.stakedLiquidity)}</span>
         </div>
         <div className="card-footer">
-          <Button className={classes.action} onClick={() => setShowDetail(!showDetail)}>
+          <Button className={b('action')} onClick={() => setShowDetail(!showDetail)}>
             {!showDetail ? "Detail" : "hide"}
           </Button>
         </div>

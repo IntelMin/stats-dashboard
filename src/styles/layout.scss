@@ -49,19 +49,39 @@ $social-colors: (
   'medium': #000000,
   'docs': #f77d05,
 );
-
+@media only screen and (max-width: 600px) {
+  .toggle.sidebar {
+    width: 0px !important;
+    border:none;
+    // min-width: 48px;
+    transition: width .2s;
+  }
+}
+.toggle.sidebar {
+  width: 47px;
+  // min-width: 48px;
+  transition: width .2s;
+}
 .sidebar {
-  display: grid;
-  grid-template-rows: 1fr 85px;
+  display: flex;
+  flex-direction: column;
+  // grid-template-rows: 1fr 85px;
   width: $sidebar-width;
-  min-width: $sidebar-width;
+  // min-width: $sidebar-width;
   border-right: 1px solid $color-border;
   background: lighten($color-bg, 2%);
-
+  transition: width .2s ease-in;
+  &__social-collapse {
+    display: none !important;
+    margin-left: 0px !important;
+    color: white !important;
+    position: initial !important;
+  }
   &__nav {
     list-style-type: none;
     padding: 0;
     margin: 40px 0 0 0;
+    flex-grow: 1;
   }
 
   &__nav-item {
@@ -80,7 +100,7 @@ $social-colors: (
     border-left: $border-left-width solid transparent;
     transition: 0.2s border-color, 0.2s background-color;
     margin-bottom: 5px;
-
+    white-space: nowrap;
     &:hover {
       border-color: darken($color-accent, 30%);
     }
@@ -98,6 +118,7 @@ $social-colors: (
 
   &__social-media {
     border-top: 1px solid #383536;
+    padding-bottom: 12px;
   }
 
   &__social-title {
@@ -110,8 +131,14 @@ $social-colors: (
     grid-auto-flow: column;
     padding: 0 15px;
     justify-content: space-between;
+    gap: 10px;
   }
-
+  .toggle &__social-title, .toggle &__social-links {
+    display: none;
+  }
+  .toggle &__social-collapse {
+    display: block !important;
+  }
   &__social-link {
     display: flex;
     color: white;

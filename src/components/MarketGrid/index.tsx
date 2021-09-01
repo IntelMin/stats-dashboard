@@ -1,34 +1,12 @@
 import { useState } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Accordion, AccordionDetails, AccordionSummary, Tooltip, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { getShortAddress } from 'utils/utils';
+import { block, getShortAddress } from 'utils/utils';
 import { getStringFromTimestamp, BNtoNum } from '../../utils/utils';
 import { MarketName } from '../../components';
 import { config } from 'config';
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    row: {
-      backgroundColor: '#1e4061',
-      color: 'white',
-    },
-    icon: {
-      fill: 'white',
-    },
-    link: {
-      color: 'white',
-    },
-    tooltip: {
-      fontSize: '12pt',
-    },
-  }),
-);  
-
+const b = block('market-grid');
 export const MarketGrid = ({ data, page, rowsPerPage }) => {
-  const classes = useStyles();
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
@@ -49,12 +27,12 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
         <span>Total Shorts</span>
         
       </div>
-      <div className={classes.root}>
+      <div className={b('root')}>
         {data.map((market, index) => {
           return (
-          <Accordion className={classes.row} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
+          <Accordion className={b('row')} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon className={classes.icon} />}
+              expandIcon={<ExpandMoreIcon className={b('icon')} />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
               className="m-0"
@@ -64,8 +42,8 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
                 {/* <span>{market.name}</span> */}
                 <span><MarketName marketID={market.id} /></span>
                 <span>{config.marketsNames[market.id].assetSymbol}</span>
-                <span><Link href="https://www.google.com/" onClick={(e) => e.stopPropagation()} className={classes.link}>{getStringFromTimestamp(market.created)}</Link></span>
-                <span><Tooltip title={<Typography className={classes.tooltip} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
+                <span><Link href="https://www.google.com/" onClick={(e) => e.stopPropagation()} className={b('link')}>{getStringFromTimestamp(market.created)}</Link></span>
+                <span><Tooltip title={<Typography className={b('tooltip')} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
                 <span>{market.totalLongs}</span>
                 <span>{market.totalShorts}</span>
               </div>

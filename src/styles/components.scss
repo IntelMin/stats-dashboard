@@ -85,4 +85,34 @@
   &__tooltip {
     font-size: 12pt !important;
   }
+  &__content {
+    padding-bottom: 12px !important;
+  }
+  &__link {
+    color: white;
+  }
+  &__action {
+    color: #eed35d;
+    text-transform: capitalize;
+  }
+}
+
+//market grid component
+.market-grid, .staker-grid, .trader-grid {
+  &__root {
+    width: 100%;
+  }
+  &__row {
+    background-color: #1e4061;
+    color: white;
+  }
+  &__icon {
+    fill: white;
+  }
+  &__link {
+    color: white;
+  }
+  &__tooltip {
+    font-size: 12pt;
+  }
 }

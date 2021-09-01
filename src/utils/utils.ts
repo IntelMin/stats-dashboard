@@ -53,3 +53,10 @@ export const classes = (...list: any[]): string => {
   export const getShortAddress = (address) => {
     return `${address.slice(0, 6)}....${address.slice(address.length - 4, address.length)}`;
   }
+
+  export const toggleClicked = () => {
+    const sidebar = document.getElementById("sidebar");
+    const socialMedia = document.getElementById("social-media");
+    sidebar?.classList.toggle('toggle');
+    socialMedia?.classList.toggle('toggle');
+  }

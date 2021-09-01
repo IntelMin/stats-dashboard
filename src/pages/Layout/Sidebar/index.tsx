@@ -11,7 +11,9 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Text } from 'components';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import { IconButton } from '@material-ui/core';
+import { toggleClicked } from 'utils/utils';
 
 export type SidebarNavItems = {
   to: string;
@@ -28,6 +30,8 @@ type SocialMediaItem = {
 interface Props {
   className?: string;
   navItems: SidebarNavItems;
+  menuOpen?: boolean;
+  setMenuOpen?: any;
 }
 
 const b = block('sidebar');
@@ -60,9 +64,9 @@ const socialMediaItems: SocialMediaItem[] = [
   },
 ];
 
-const Sidebar = ({ navItems }: Props) => {
+const Sidebar = ({ navItems, menuOpen, setMenuOpen }: Props) => {
   return (
-    <div className={b()}>
+    <div className={b()} id="sidebar">
       <ul className={b('nav')}>
         {navItems.map((item, i) => (
           <li className={b('nav-item')} key={i}>
@@ -81,7 +85,7 @@ const Sidebar = ({ navItems }: Props) => {
           </li>
         ))}
       </ul>
-      <div className={b('social-media')}>
+      <div className={b('social-media')} id="social-media">
         <Text className={b('social-title')}>Community: </Text>
         <div className={b('social-links')}>
           {socialMediaItems.map((x) => (
@@ -96,6 +100,9 @@ const Sidebar = ({ navItems }: Props) => {
             </a>
           ))}
         </div>
+        <IconButton edge="start" className={b('social-collapse')} onClick={ () => {setMenuOpen(!menuOpen);toggleClicked();} } color="inherit" aria-label="menu">
+          <SettingsIcon />
+        </IconButton>
       </div>
     </div>
   );

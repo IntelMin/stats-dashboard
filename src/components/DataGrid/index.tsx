@@ -1,7 +1,7 @@
 import React from 'react';
 import { block } from 'utils/utils';
 
-import './style.scss';
+import 'styles/grid.scss';
 
 const b = block('data-grid');
 

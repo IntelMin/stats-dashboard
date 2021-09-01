@@ -10,8 +10,12 @@
     display: flex;
     align-items: center;
     width: $sidebar-width;
-    border-right: 1px solid $color-border;
-
+    min-width: $sidebar-width;
+    // border-right: 1px solid $color-border;
+    .toggle {
+      color: white;
+      margin-left: 0px;
+    }
     .logoLink {
       margin: 0 auto;
       display: block;
@@ -19,7 +23,7 @@
 
     .logoImg {
       display: block;
-      height: $header-height - 40px;
+      height: $header-height - 35px;
       width: auto;
     }
   }
