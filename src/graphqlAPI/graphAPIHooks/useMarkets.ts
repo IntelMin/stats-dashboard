@@ -17,7 +17,7 @@ const convert = memoize(
       totalLongs: market.totalLongs,
       totalLongsHistorical: market.totalLongsHistorical,
       totalShorts: market.totalShorts,
-      totalShortsHistorical: market.totalLongsHistorical,
+      totalShortsHistorical: market.totalShortsHistorical,
       totalStakers: market.totalStakers,
       totalTraders: market.totalTraders,
       unrealizedPNL: market.unrealizedPNL,
@@ -34,7 +34,7 @@ export const useMarkets = (first, sk) => {
 
   const { data, loading, startPolling, stopPolling, networkStatus } =
     useMarketsQuery(pagination);
-  
+  console.log("marketdata-->>", data)
   useEffect(() => {
     let _pagination = {};
     _pagination['first'] = first;

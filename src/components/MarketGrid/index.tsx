@@ -41,7 +41,7 @@ export const MarketGrid = ({ data, page, rowsPerPage }) => {
                 <span>{page * rowsPerPage + index + 1}</span>
                 {/* <span>{market.name}</span> */}
                 <span><MarketName marketID={market.id} /></span>
-                <span>{config.marketsNames[market.id].assetSymbol}</span>
+                <span>{config.marketsNames[market.id]?.assetSymbol || "Unknown"}</span>
                 <span><Link href="https://www.google.com/" onClick={(e) => e.stopPropagation()} className={b('link')}>{getStringFromTimestamp(market.created)}</Link></span>
                 <span><Tooltip title={<Typography className={b('tooltip')} >{market.id}</Typography>} arrow ><div>{getShortAddress(market.id)}</div></Tooltip></span>
                 <span>{market.totalLongs}</span>
