@@ -1,5 +1,5 @@
 {
-  "graphAPIUrl": "http://127.0.0.1:8000/subgraphs/name/strips-finance/test-subgraph",
+  "graphAPIUrl": "https://api.thegraph.com/subgraphs/name/intelmin/stripsmon",
   "chainID": 97,
   "views": {
     "eventsLogs": true
