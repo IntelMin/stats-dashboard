@@ -181,8 +181,11 @@ export type MonlogStake = {
   created: Scalars['BigInt'];
   kind: Scalars['Int'];
   param1: Scalars['BigDecimal'];
-  market:{
-    id:Scalars['ID']
+  market: {
+    id: Scalars['ID']
+  }
+  account: {
+    id: Scalars['ID']
   }
 };
 
@@ -195,6 +198,9 @@ export const MonlogStakesDocument = (op) => {
         kind
         param1
         market{
+          id
+        }
+        account{
           id
         }
       }
@@ -221,7 +227,7 @@ export type MonlogStakesQuery = (
   { __typename?: 'Query' }
   & { monlogStakes: Array<(
         { __typename?: 'MonlogStake' }
-        & Pick<MonlogStake, 'id' | 'created' | 'kind' | 'param1' |'market'>
+        & Pick<MonlogStake, 'id' | 'created' | 'kind' | 'param1' |'market' | 'account'>
       )> 
       markets: Array<(
         { __typename?: 'Market' }

@@ -7,9 +7,9 @@ import { NetworkStatus } from '@apollo/client/core/networkStatus';
 
 const convert = memoize(
   (response?: StakersQuery): any=>
-    response?.stakers?.map((trader) => ({
-      id: trader.id,
-      market: trader.market
+    response?.stakers?.map((staker) => ({
+      id: staker.id,
+      market: staker.market
     })) ?? [],
 );
 

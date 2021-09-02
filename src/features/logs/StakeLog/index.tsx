@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import { DataGrid, MarketName } from '../../../components'
-import { getStringFromTimestamp, BNtoNum } from '../../../utils/utils'
+import { getStringFromTimestamp, BNtoNum, getShortAddress } from '../../../utils/utils'
 import { config } from '../../../config';
 
 const StakeLog = () => {
@@ -123,7 +123,8 @@ const StakeLog = () => {
             { label: "Market"},
             { label: 'Kind' },
             { label: 'Data' },
-            { label: 'Time' }
+            { label: 'Time' },
+            { label: 'Account' }
           ]
         ]}
         data={monlogStakes?.map((log, index) =>
@@ -132,7 +133,8 @@ const StakeLog = () => {
           <MarketName marketID={log.market.id} />,
           <div>{ getKindName(log.kind) }</div>,
           <div>{ formatParams(log.kind, log.param1) }</div>,
-          <div>{ getStringFromTimestamp(log.created)}</div>,          
+          <div>{ getStringFromTimestamp(log.created)}</div>, 
+          <div>{ getShortAddress(log.account.id) }</div>,           
         ])}
     />
     <TablePagination

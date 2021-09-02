@@ -23,6 +23,7 @@ const ListView = () => {
     console.log("Market selected:", event.target.value)
     setMarket(event.target.value);
   }
+  console.log("stakers-->>", stakers)
   const getMarketName = (id) => {
     console.log(id)
     let marketName;

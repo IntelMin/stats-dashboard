@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Tooltip,  Typography, Chip } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { block, getShortAddress } from 'utils/utils';
+import { BNtoNum } from '../../utils/utils';
 const b = block('trader-grid');
 export const TraderGrid = ({ data, page, rowsPerPage, positions }) => {
   console.log(data, page, rowsPerPage)
@@ -16,7 +17,7 @@ export const TraderGrid = ({ data, page, rowsPerPage, positions }) => {
     const position = positions.find(e => e.account.id === id)
     console.log("this is position", position);
     if(!position) return "N/A"
-    return <div className="chip-wrapper">IsActive: {position.isActive ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} IsLong: {position.isLong ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} IsLiquidated: {position.isLiquidated ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} Collateral: <Chip color="primary" label={position.collateral} /> Leverage: <Chip color="primary" label={position.leverage} /></div>;
+    return <div className="chip-wrapper">IsActive: {position.isActive ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} IsLong: {position.isLong ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} IsLiquidated: {position.isLiquidated ? <Chip label="Yes" color="primary" /> : <Chip label="No" color="secondary" />} Collateral: <Chip color="primary" label={BNtoNum(position.collateral)} /> Leverage: <Chip color="primary" label={position.leverage} /></div>;
   }
   
       

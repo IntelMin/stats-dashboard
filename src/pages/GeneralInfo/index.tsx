@@ -2,7 +2,7 @@ import { Grid, Typography } from "@material-ui/core";
 import RiskParams from "components/RiskParams"
 import StatisticsCard from "components/StatisticsCard"
 import { useGeneralInfo } from 'graphqlAPI';
-
+import { BNtoNum } from '../../utils/utils';
 const GeneralInfo = () => {
     const { monlogStripsInfos } = useGeneralInfo();
     console.log("monlogStripsInfos-->>",monlogStripsInfos)
@@ -22,10 +22,10 @@ const GeneralInfo = () => {
                             <StatisticsCard subValue="null" value={monlogStripsInfos[0]?.totalCollaterals} title="Total Collaterals" index={4}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard subValue={ monlogStripsInfos[0]?.totalLongs || 0} value={monlogStripsInfos[0]?.totalLongsHistorical} title="Total Longs" index={3}/>
+                            <StatisticsCard subValue={ "null" } value={BNtoNum(monlogStripsInfos[0]?.totalLongs) || 0} title="Total Longs" index={3}/>
                         </Grid>
                         <Grid item xs={12} md={12} lg={6} xl={4}>
-                            <StatisticsCard subValue={monlogStripsInfos[0]?.totalShorts || 0} value={monlogStripsInfos[0]?.totalShortsHistorical } title="Total Shorts" index={7}/>
+                            <StatisticsCard subValue={"null"} value={BNtoNum(monlogStripsInfos[0]?.totalShorts) || 0} title="Total Shorts" index={7}/>
                         </Grid>
                     </Grid>                
                 </Grid>

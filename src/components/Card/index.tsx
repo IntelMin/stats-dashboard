@@ -55,26 +55,6 @@ const ModuleCard = ( {market} ) => {
             <span>{BNtoNum(market.supply)}</span>
           </div>
           <div className="flex">
-            <span>Total Longs:</span>
-            <span>{market.totalLongs}</span>
-          </div>
-          <div className="flex">
-            <span>Total Longs:</span>
-            <span>{market.totalLongs}</span>
-          </div>
-          <div className="flex">
-            <span>Total Longs Historical:</span>
-            <span>{market.totalLongsHistorical}</span>
-          </div>
-          <div className="flex">
-            <span>Total Shorts:</span>
-            <span>{market.totalShorts}</span>
-          </div>
-          <div className="flex">
-            <span>Total Shorts Historical:</span>
-            <span>{market.totalShortsHistorical}</span>
-          </div>
-          <div className="flex">
             <span>Total Traders:</span>
             <span>{market.totalTraders}</span>
           </div>
@@ -82,6 +62,23 @@ const ModuleCard = ( {market} ) => {
             <span>Total Stakers:</span>
             <span>{market.totalStakers}</span>
           </div>
+          <div className="flex">
+            <span>Total Longs:</span>
+            <span>{BNtoNum(market.totalLongs)}</span>
+          </div>
+          <div className="flex">
+            <span>Total Shorts:</span>
+            <span>{BNtoNum(market.totalShorts)}</span>
+          </div>
+          <div className="flex">
+            <span>Total Longs Count (Historical):</span>
+            <span>{market.totalLongsHistorical}</span>
+          </div>
+          <div className="flex">
+            <span>Total Shorts Count (Historical):</span>
+            <span>{market.totalShortsHistorical}</span>
+          </div>
+       
         </div>}
       </CardContent>
     </Card>

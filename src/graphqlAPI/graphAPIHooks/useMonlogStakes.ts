@@ -14,6 +14,7 @@ const convert = memoize(
       kind: monlogStake.kind,
       param1: monlogStake.param1,
       market: monlogStake.market,
+      account: monlogStake.account
     })) ?? [],
 );
 
